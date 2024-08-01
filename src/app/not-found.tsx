@@ -1,3 +1,4 @@
+import { routes } from '@/lib/routes'
 import styles from './not-found.module.css'
 import Link from 'next/link'
 
@@ -13,7 +14,7 @@ export default function NotFound() {
 							Возможно, она была удалена или перенесена на другой адрес
 						</p>
 						<button className={styles.errorBlock__BtnReturn}>
-							<Link href={'/'}> Вернуться на главную</Link>
+							<Link href={routes.HOME}> Вернуться на главную</Link>
 						</button>
 					</div>
 				</div>

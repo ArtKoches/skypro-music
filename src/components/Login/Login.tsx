@@ -3,6 +3,7 @@ import styles from './Login.module.css'
 import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
+import { routes } from '@/lib/routes'
 
 export default function Login() {
 	return (
@@ -36,7 +37,7 @@ export default function Login() {
 							<a href='../index.html'>Войти</a>
 						</button>
 						<button className={styles.modal__btn_signup}>
-							<Link href={'/signup'}>Зарегистрироваться</Link>
+							<Link href={routes.REGISTER}>Зарегистрироваться</Link>
 						</button>
 					</form>
 				</div>
