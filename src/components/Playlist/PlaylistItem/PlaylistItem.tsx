@@ -241,6 +241,138 @@ export default function PlaylistItem() {
 					</div>
 				</div>
 			</div>
+
+			<div className={styles.playlist__item}>
+				<div className={styles.playlist__track}>
+					<div className={styles.track__title}>
+						<div className={styles.track__title_image}>
+							<svg className={styles.track__title_svg}>
+								<use xlinkHref='img/icon/sprite.svg#icon-note' />
+							</svg>
+						</div>
+						<div>
+							<a className={styles.track__title_link} href='http://'>
+								Elektro <span className={styles.track__title_span} />
+							</a>
+						</div>
+					</div>
+					<div className={styles.track__author}>
+						<a className={styles.track__author_link} href='http://'>
+							Dynoro, Outwork, Mr. Gee
+						</a>
+					</div>
+					<div className={styles.track__album}>
+						<a className={styles.track__album_link} href='http://'>
+							Elektro
+						</a>
+					</div>
+					<div>
+						<svg className={styles.track__time_svg}>
+							<use xlinkHref='img/icon/sprite.svg#icon-like' />
+						</svg>
+						<span className={styles.track__time_text}>2:22</span>
+					</div>
+				</div>
+			</div>
+
+			<div className={styles.playlist__item}>
+				<div className={styles.playlist__track}>
+					<div className={styles.track__title}>
+						<div className={styles.track__title_image}>
+							<svg className={styles.track__title_svg}>
+								<use xlinkHref='img/icon/sprite.svg#icon-note' />
+							</svg>
+						</div>
+						<div>
+							<a className={styles.track__title_link} href='http://'>
+								Elektro <span className={styles.track__title_span} />
+							</a>
+						</div>
+					</div>
+					<div className={styles.track__author}>
+						<a className={styles.track__author_link} href='http://'>
+							Dynoro, Outwork, Mr. Gee
+						</a>
+					</div>
+					<div className={styles.track__album}>
+						<a className={styles.track__album_link} href='http://'>
+							Elektro
+						</a>
+					</div>
+					<div>
+						<svg className={styles.track__time_svg}>
+							<use xlinkHref='img/icon/sprite.svg#icon-like' />
+						</svg>
+						<span className={styles.track__time_text}>2:22</span>
+					</div>
+				</div>
+			</div>
+
+			<div className={styles.playlist__item}>
+				<div className={styles.playlist__track}>
+					<div className={styles.track__title}>
+						<div className={styles.track__title_image}>
+							<svg className={styles.track__title_svg}>
+								<use xlinkHref='img/icon/sprite.svg#icon-note' />
+							</svg>
+						</div>
+						<div>
+							<a className={styles.track__title_link} href='http://'>
+								Elektro <span className={styles.track__title_span} />
+							</a>
+						</div>
+					</div>
+					<div className={styles.track__author}>
+						<a className={styles.track__author_link} href='http://'>
+							Dynoro, Outwork, Mr. Gee
+						</a>
+					</div>
+					<div className={styles.track__album}>
+						<a className={styles.track__album_link} href='http://'>
+							Elektro
+						</a>
+					</div>
+					<div>
+						<svg className={styles.track__time_svg}>
+							<use xlinkHref='img/icon/sprite.svg#icon-like' />
+						</svg>
+						<span className={styles.track__time_text}>2:22</span>
+					</div>
+				</div>
+			</div>
+
+			<div className={styles.playlist__item}>
+				<div className={styles.playlist__track}>
+					<div className={styles.track__title}>
+						<div className={styles.track__title_image}>
+							<svg className={styles.track__title_svg}>
+								<use xlinkHref='img/icon/sprite.svg#icon-note' />
+							</svg>
+						</div>
+						<div>
+							<a className={styles.track__title_link} href='http://'>
+								Elektro <span className={styles.track__title_span} />
+							</a>
+						</div>
+					</div>
+					<div className={styles.track__author}>
+						<a className={styles.track__author_link} href='http://'>
+							Dynoro, Outwork, Mr. Gee
+						</a>
+					</div>
+					<div className={styles.track__album}>
+						<a className={styles.track__album_link} href='http://'>
+							Elektro
+						</a>
+					</div>
+					<div>
+						<svg className={styles.track__time_svg}>
+							<use xlinkHref='img/icon/sprite.svg#icon-like' />
+						</svg>
+						<span className={styles.track__time_text}>2:22</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 }

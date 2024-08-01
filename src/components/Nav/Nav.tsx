@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Nav.module.css'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Nav() {
 	return (
@@ -32,9 +33,9 @@ export default function Nav() {
 						</a>
 					</li>
 					<li className={styles.menu__item}>
-						<a href='../signin.html' className={styles.menu__link}>
+						<Link className={styles.menu__link} href={'/signin'}>
 							Войти
-						</a>
+						</Link>
 					</li>
 				</ul>
 			</div>
