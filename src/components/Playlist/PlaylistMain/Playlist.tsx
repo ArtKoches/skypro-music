@@ -4,7 +4,7 @@ import PlaylistItem from '../PlaylistItem/PlaylistItem'
 import PlaylistTitle from '../PlaylistTitle/PlaylistTitle'
 import styles from './Playlist.module.css'
 
-export default function Playlist() {
+export default function Playlist({ tracksData }: any) {
 	return (
 		<div className={styles.main__centerblock}>
 			<Search />
@@ -12,7 +12,7 @@ export default function Playlist() {
 			<Filter />
 			<div className={styles.centerblock__content}>
 				<PlaylistTitle />
-				<PlaylistItem />
+				<PlaylistItem tracksData={tracksData} />
 			</div>
 		</div>
 	)
