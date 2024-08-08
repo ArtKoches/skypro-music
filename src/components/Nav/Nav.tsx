@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { routes } from '@/lib/routes'
 
 export default function Nav() {
-	const [openNavMenu, setOpenNavMenu] = useState(false)
+	const [openNavMenu, setOpenNavMenu] = useState<boolean>(false)
 	const handleOpenMenu = () => setOpenNavMenu(prev => !prev)
 
 	return (

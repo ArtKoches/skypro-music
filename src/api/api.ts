@@ -11,11 +11,11 @@ export const tracksApi = {
 			}
 
 			return respData.data
-		} catch (error: any) {
-			console.error(error)
-
-			if (error.message === 'Failed to fetch') {
-				throw new Error('Проверьте интернет')
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				throw new Error(error.message)
+			} else {
+				throw new Error('Неизвестная ошибка')
 			}
 		}
 	},

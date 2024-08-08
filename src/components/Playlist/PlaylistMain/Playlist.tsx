@@ -1,10 +1,15 @@
-import Filter from '../../Filter/Filter'
+import { tracksDataTypes } from '@/lib/types'
+import Filter from '../../Filter/FilterMain/Filter'
 import Search from '../../Search/Search'
 import PlaylistItem from '../PlaylistItem/PlaylistItem'
 import PlaylistTitle from '../PlaylistTitle/PlaylistTitle'
 import styles from './Playlist.module.css'
 
-export default function Playlist({ tracksData }: any) {
+type Props = {
+	tracksData: tracksDataTypes[]
+}
+
+export default function Playlist({ tracksData }: Props) {
 	return (
 		<div className={styles.main__centerblock}>
 			<Search />

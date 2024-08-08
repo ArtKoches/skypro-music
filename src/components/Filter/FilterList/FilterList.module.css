@@ -1,0 +1,33 @@
+.filterList {
+	width: 248px;
+	height: 305px;
+	background-color: #313131;
+	border-radius: 12px;
+	padding: 34px;
+	/* font-size: 20px; */
+	line-height: 24px;
+	position: absolute;
+	top: 50px;
+	left: 0;
+}
+
+.listItems {
+	display: flex;
+	flex-direction: column;
+	gap: 28px;
+	width: 180px;
+	height: 237px;
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	&::-webkit-scrollbar {
+		width: 4px;
+		background-color: #4b4949;
+		border-radius: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: #ffffff;
+		border-radius: 10px;
+	}
+}
