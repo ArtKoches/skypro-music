@@ -19,7 +19,9 @@ export default function FilterButton({
 	return (
 		<div className={styles.filterWrapper}>
 			<div
-				className={classNames(styles.filter__button, styles._btn_text)}
+				className={classNames(styles.filter__button, {
+					[styles._btn_active]: openFilterCategory,
+				})}
 				onClick={() => handleOpenFilter(title)}
 			>
 				{title}

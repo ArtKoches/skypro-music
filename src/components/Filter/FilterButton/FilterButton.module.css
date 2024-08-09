@@ -10,19 +10,19 @@
 	border: 1px solid #ffffff;
 	border-radius: 60px;
 	padding: 6px 20px;
+
+	&:not(:nth-child(2)) {
+		margin-right: 10px;
+	}
+
+	&:hover {
+		border-color: #d9b6ff;
+		color: #d9b6ff;
+		cursor: pointer;
+	}
 }
 
-.filter__button:not(:nth-child(2)) {
-	margin-right: 10px;
-}
-
-._btn_text:hover {
-	border-color: #d9b6ff;
-	color: #d9b6ff;
-	cursor: pointer;
-}
-
-._btn_text:active {
+._btn_active {
 	border-color: #ad61ff;
 	color: #ad61ff;
 	cursor: pointer;

@@ -4,8 +4,6 @@
 	background-color: #313131;
 	border-radius: 12px;
 	padding: 34px;
-	font-size: 18px;
-	line-height: 24px;
 	position: absolute;
 	top: 50px;
 	left: 0;
@@ -29,5 +27,17 @@
 	&::-webkit-scrollbar-thumb {
 		background-color: #ffffff;
 		border-radius: 10px;
+	}
+}
+
+.listItem {
+	font-size: 18px;
+	line-height: 24px;
+
+	&:hover {
+		text-decoration: underline 2px;
+		text-underline-offset: 4px;
+		color: #b672ff;
+		cursor: pointer;
 	}
 }

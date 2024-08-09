@@ -10,7 +10,9 @@ export default function FilterList({ options }: Props) {
 		<div className={styles.filterList}>
 			<ul className={styles.listItems}>
 				{options.map((option, key: number) => (
-					<li key={key}>{option}</li>
+					<li key={key} className={styles.listItem}>
+						{option}
+					</li>
 				))}
 			</ul>
 		</div>
