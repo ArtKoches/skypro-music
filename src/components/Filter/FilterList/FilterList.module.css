@@ -1,10 +1,10 @@
 .filterList {
-	width: 248px;
-	height: 305px;
+	min-width: 221px;
+	min-height: 196px;
 	background-color: #313131;
 	border-radius: 12px;
 	padding: 34px;
-	/* font-size: 20px; */
+	font-size: 18px;
 	line-height: 24px;
 	position: absolute;
 	top: 50px;
@@ -12,11 +12,11 @@
 }
 
 .listItems {
+	max-width: 180px;
+	max-height: 237px;
 	display: flex;
 	flex-direction: column;
 	gap: 28px;
-	width: 180px;
-	height: 237px;
 	overflow-x: hidden;
 	overflow-y: auto;
 

@@ -14,7 +14,7 @@ export default function Playlist({ tracksData }: Props) {
 		<div className={styles.main__centerblock}>
 			<Search />
 			<h2 className={styles.centerblock__h2}>Треки</h2>
-			<Filter />
+			<Filter tracksData={tracksData} />
 			<div className={styles.centerblock__content}>
 				<PlaylistTitle />
 				<PlaylistItem tracksData={tracksData} />

@@ -10,3 +10,9 @@ export type tracksDataTypes = {
 	track_file: string
 	staredUser: number[]
 }
+
+export enum filterTypes {
+	author = 'исполнителю',
+	year = 'году выпуска',
+	genre = 'жанру',
+}

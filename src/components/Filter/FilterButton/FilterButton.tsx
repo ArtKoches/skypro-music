@@ -7,12 +7,14 @@ type Props = {
 	title: string
 	openFilterCategory: boolean
 	handleOpenFilter: (title: string) => void
+	getFilterLists: string[]
 }
 
 export default function FilterButton({
 	title,
 	openFilterCategory,
 	handleOpenFilter,
+	getFilterLists,
 }: Props) {
 	return (
 		<div className={styles.filterWrapper}>
@@ -23,7 +25,7 @@ export default function FilterButton({
 				{title}
 			</div>
 
-			{openFilterCategory && <FilterList />}
+			{openFilterCategory && <FilterList options={getFilterLists} />}
 		</div>
 	)
 }

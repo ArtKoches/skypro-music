@@ -4,9 +4,10 @@ import Nav from '../Nav/Nav'
 import Playlist from '../Playlist/PlaylistMain/Playlist'
 import Sidebar from '../Sidebar/Sidebar'
 import styles from './Main.module.css'
+import { tracksDataTypes } from '@/lib/types'
 
 export default async function Main() {
-	const tracksData = await tracksApi.getTracks()
+	const tracksData: tracksDataTypes[] = await tracksApi.getTracks()
 
 	return (
 		<div className={styles.wrapper}>

@@ -1,17 +1,17 @@
 import React from 'react'
 import styles from './FilterList.module.css'
 
-export default function FilterList() {
+type Props = {
+	options: string[]
+}
+
+export default function FilterList({ options }: Props) {
 	return (
 		<div className={styles.filterList}>
 			<ul className={styles.listItems}>
-				<li>ADANIT-MANTL</li>
-				<li>ADANIT-MANTL</li>
-				<li>ADANIT-MANTL</li>
-				<li>ADANIT-MANTL</li>
-				<li>ADANIT-MANTL</li>
-				<li>ADANIT-MANTL</li>
-				<li>ADANIT-MANTL</li>
+				{options.map((option, key: number) => (
+					<li key={key}>{option}</li>
+				))}
 			</ul>
 		</div>
 	)

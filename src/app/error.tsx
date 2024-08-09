@@ -23,7 +23,7 @@ export default function Error({
 					() => reset()
 				}
 			>
-				Try again
+				Перезагрузить страницу
 			</button>
 		</div>
 	)
