@@ -7,14 +7,25 @@ import styles from './Main.module.css'
 import { tracksDataTypes } from '@/lib/types'
 
 export default async function Main() {
-	const tracksData: tracksDataTypes[] = await tracksApi.getTracks()
+	let tracksData: tracksDataTypes[] = []
+	let errorMsg: string = ''
+
+	try {
+		tracksData = await tracksApi.getTracks()
+	} catch (error) {
+		if (error instanceof Error) {
+			errorMsg = error.message
+		} else {
+			errorMsg = 'Неизвестная ошибка'
+		}
+	}
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.container}>
 				<main className={styles.main}>
 					<Nav />
-					<Playlist tracksData={tracksData} />
+					<Playlist tracksData={tracksData} errorMsg={errorMsg} />
 					<Sidebar />
 				</main>
 				<Bar />
