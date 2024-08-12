@@ -1,10 +1,10 @@
 import { tracksApi } from '@/api/api'
-import Bar from '../Bar/Bar'
+import { tracksDataTypes } from '@/lib/types'
+import Bar from '../Bar/BarMain/Bar'
 import Nav from '../Nav/Nav'
 import Playlist from '../Playlist/PlaylistMain/Playlist'
 import Sidebar from '../Sidebar/Sidebar'
 import styles from './Main.module.css'
-import { tracksDataTypes } from '@/lib/types'
 
 export default async function Main() {
 	let tracksData: tracksDataTypes[] = []
@@ -28,7 +28,7 @@ export default async function Main() {
 					<Playlist tracksData={tracksData} errorMsg={errorMsg} />
 					<Sidebar />
 				</main>
-				<Bar />
+				<Bar tracksData={tracksData} />
 			</div>
 		</div>
 	)
