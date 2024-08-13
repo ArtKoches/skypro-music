@@ -1,15 +1,13 @@
 import React from 'react'
 import styles from './PlaylistItem.module.css'
 import { tracksDataTypes } from '@/lib/types'
-import { format } from 'date-fns'
+import { trackFormattedTime } from '@/utils/helpers'
 
 type Props = {
 	tracksData: tracksDataTypes[]
 }
 
 export default function PlaylistItem({ tracksData }: Props) {
-	const trackFormattedTime = (time: number) => format(time * 1000, 'm:ss')
-
 	return (
 		<div className={styles.content__playlist}>
 			{tracksData.map((track: tracksDataTypes) => (
