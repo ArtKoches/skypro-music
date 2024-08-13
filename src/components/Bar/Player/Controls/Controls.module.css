@@ -25,6 +25,7 @@
 
 .player__btn_prev {
 	margin-right: 23px;
+	cursor: pointer;
 }
 
 .player__btn_prev_svg {
@@ -45,6 +46,7 @@
 .player__btn_next {
 	margin-right: 28px;
 	fill: #a53939;
+	cursor: pointer;
 }
 
 .player__btn_next_svg {
@@ -66,6 +68,12 @@
 }
 
 ._btn {
+	cursor: pointer;
+}
+
+._btn_active {
+	fill: transparent;
+	stroke: #ffffff;
 	cursor: pointer;
 }
 

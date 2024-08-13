@@ -12,13 +12,15 @@ type Props = {
 }
 
 export default function Bar({ tracksData }: Props) {
-	const audioRef = useRef<null | HTMLAudioElement>(null)
+	const audioRef = useRef<HTMLAudioElement | null>(null)
 	const [playing, setPlaying] = useState<boolean>(false)
+	const [loop, setLoop] = useState<boolean>(false)
 	const [volume, setVolume] = useState<number>(0.5)
 
 	useEffect(() => {
-		if (audioRef.current) {
-			audioRef.current.volume = volume
+		const audio = audioRef.current
+		if (audio) {
+			audio.volume = volume
 		}
 	}, [volume])
 
@@ -32,16 +34,34 @@ export default function Bar({ tracksData }: Props) {
 		setPlaying(prev => !prev)
 	}
 
+	const toggleLoop = () => {
+		const audio = audioRef.current
+		if (audio) {
+			loop ? (audio.loop = false) : (audio.loop = true)
+		}
+		setLoop(prev => !prev)
+	}
+
+	const handleWarningInfo = () => {
+		alert('Еще не реализовано')
+	}
+
 	return (
 		<div className={styles.bar}>
 			<div className={styles.bar__content}>
 				<div className={styles.bar__player_progress} />
 				<div className={styles.bar__player_block}>
 					<div className={styles.bar__player}>
-						<audio ref={audioRef} src={tracksData[28].track_file}>
+						<audio ref={audioRef} src={tracksData[14].track_file}>
 							Ваш браузер не поддерживает встроенное аудио.
 						</audio>
-						<Controls togglePlay={togglePlay} playing={playing} />
+						<Controls
+							togglePlay={togglePlay}
+							playing={playing}
+							toggleLoop={toggleLoop}
+							loop={loop}
+							handleWarningInfo={handleWarningInfo}
+						/>
 						<PlayingTrack />
 					</div>
 					<Volume volume={volume} handleChange={handleChange} />

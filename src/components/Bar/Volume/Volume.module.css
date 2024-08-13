@@ -44,3 +44,7 @@
 .volume__progress_line {
 	width: 109px;
 }
+
+._btn {
+	cursor: pointer;
+}
