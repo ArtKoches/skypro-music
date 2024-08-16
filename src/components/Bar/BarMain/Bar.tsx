@@ -26,7 +26,7 @@ export default function Bar({ tracksData }: Props) {
 		if (audio) {
 			audio.volume = volume
 		}
-	}, [volume])
+	}, [volume, audio])
 
 	const handleChangeVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setVolume(Number(event.target.value))
@@ -69,7 +69,7 @@ export default function Bar({ tracksData }: Props) {
 				</div>
 				<audio
 					ref={audioRef}
-					src={tracksData[11].track_file}
+					src={tracksData[2].track_file}
 					onTimeUpdate={handleTimeUpdate}
 				>
 					Ваш браузер не поддерживает встроенное аудио.
@@ -91,7 +91,7 @@ export default function Bar({ tracksData }: Props) {
 						/>
 						<PlayingTrack />
 					</div>
-					<Volume volume={volume} handleChange={handleChangeVolume} />
+					<Volume value={volume} onChange={handleChangeVolume} />
 				</div>
 			</div>
 		</div>
