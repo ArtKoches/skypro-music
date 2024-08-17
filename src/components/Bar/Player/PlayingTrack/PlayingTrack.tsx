@@ -1,8 +1,13 @@
 import React from 'react'
 import styles from './PlayingTrack.module.css'
 import classNames from 'classnames'
+import { tracksDataTypes } from '@/lib/types'
 
-export default function PlayingTrack() {
+type Props = {
+	track: tracksDataTypes | null
+}
+
+export default function PlayingTrack({ track }: Props) {
 	return (
 		<div className={styles.player__track_play}>
 			<div className={styles.track_play__contain}>
@@ -13,12 +18,12 @@ export default function PlayingTrack() {
 				</div>
 				<div className={styles.track_play__author}>
 					<a className={styles.track_play__author_link} href='http://'>
-						Ты та...
+						{track?.author}
 					</a>
 				</div>
 				<div className={styles.track_play__album}>
 					<a className={styles.track_play__album_link} href='http://'>
-						Баста
+						{track?.album}
 					</a>
 				</div>
 			</div>

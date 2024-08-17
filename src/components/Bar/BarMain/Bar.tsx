@@ -10,11 +10,11 @@ import Progress from '../Progress/Progress'
 import { trackFormattedTime } from '@/utils/helpers'
 
 type Props = {
-	tracksData: tracksDataTypes[]
+	track: tracksDataTypes | null
 }
 
-export default function Bar({ tracksData }: Props) {
-	const [playing, setPlaying] = useState<boolean>(false)
+export default function Bar({ track }: Props) {
+	const [playing, setPlaying] = useState<boolean>(true)
 	const [loop, setLoop] = useState<boolean>(false)
 	const [volume, setVolume] = useState<number>(0.5)
 	const [currentTime, setCurrentTime] = useState<number>(0)
@@ -64,12 +64,13 @@ export default function Bar({ tracksData }: Props) {
 			<div className={styles.bar__content}>
 				<div className={styles.bar__timer}>
 					<p>
-						{trackFormattedTime(currentTime)} | {trackFormattedTime(duration)}
+						{trackFormattedTime(currentTime)} |{trackFormattedTime(duration)}
 					</p>
 				</div>
 				<audio
+					autoPlay
 					ref={audioRef}
-					src={tracksData[2].track_file}
+					src={track?.track_file}
 					onTimeUpdate={handleTimeUpdate}
 				>
 					Ваш браузер не поддерживает встроенное аудио.
@@ -89,7 +90,7 @@ export default function Bar({ tracksData }: Props) {
 							loop={loop}
 							handleWarningInfo={handleWarningInfo}
 						/>
-						<PlayingTrack />
+						<PlayingTrack track={track} />
 					</div>
 					<Volume value={volume} onChange={handleChangeVolume} />
 				</div>

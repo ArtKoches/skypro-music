@@ -7,22 +7,20 @@ import styles from './Playlist.module.css'
 
 type Props = {
 	tracksData: tracksDataTypes[]
-	errorMsg: string
+	setTrack: (arg: tracksDataTypes) => void
+	load: boolean
 }
 
-export default function Playlist({ tracksData, errorMsg }: Props) {
+export default function Playlist({ tracksData, setTrack, load }: Props) {
 	return (
 		<div className={styles.main__centerblock}>
 			<Search />
 			<h2 className={styles.centerblock__h2}>Треки</h2>
 			<Filter tracksData={tracksData} />
-
-			{errorMsg || (
-				<div className={styles.centerblock__content}>
-					<PlaylistTitle />
-					<PlaylistItem tracksData={tracksData} />
-				</div>
-			)}
+			<div className={styles.centerblock__content}>
+				<PlaylistTitle />
+				<PlaylistItem tracksData={tracksData} setTrack={setTrack} load={load} />
+			</div>
 		</div>
 	)
 }
