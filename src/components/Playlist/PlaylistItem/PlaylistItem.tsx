@@ -28,7 +28,7 @@ export default function PlaylistItem({ tracksData, setTrack, load }: Props) {
 										</svg>
 									</div>
 									<div>
-										<a className={styles.track__title_link} href='http://'>
+										<a className={styles.track__title_link} href='#'>
 											{track.name} <span className={styles.track__title_span} />
 										</a>
 									</div>

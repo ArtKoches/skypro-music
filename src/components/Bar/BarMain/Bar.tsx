@@ -64,7 +64,7 @@ export default function Bar({ track }: Props) {
 			<div className={styles.bar__content}>
 				<div className={styles.bar__timer}>
 					<p>
-						{trackFormattedTime(currentTime)} |{trackFormattedTime(duration)}
+						{trackFormattedTime(currentTime)} | {trackFormattedTime(duration)}
 					</p>
 				</div>
 				<audio
