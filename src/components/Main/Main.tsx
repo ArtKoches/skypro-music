@@ -8,31 +8,35 @@ import Playlist from '../Playlist/PlaylistMain/Playlist'
 import Sidebar from '../Sidebar/Sidebar'
 import styles from './Main.module.css'
 import { useEffect, useState } from 'react'
+import { setCurrPlaylistState } from '@/store/features/currPlaylistSlice'
+import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export default function Main() {
-	const [tracksData, setTracksData] = useState<tracksDataTypes[]>([])
-	const [track, setTrack] = useState<tracksDataTypes | null>(null)
+	const currTrackState = useAppSelector(
+		state => state.currPlaylist.currTrackState,
+	)
+	const dispatch = useAppDispatch()
 	const [load, setLoad] = useState<boolean>(true)
 
 	useEffect(() => {
 		tracksApi
 			.getTracks()
-			.then((resp: tracksDataTypes[]) => setTracksData(resp))
+			.then((resp: tracksDataTypes[]) => dispatch(setCurrPlaylistState(resp)))
 			.catch(error => {
 				if (error instanceof Error) throw new Error(error.message)
 			})
 			.finally(() => setLoad(false))
-	}, [])
+	}, [dispatch])
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.container}>
 				<main className={styles.main}>
 					<Nav />
-					<Playlist tracksData={tracksData} setTrack={setTrack} load={load} />
+					<Playlist load={load} />
 					<Sidebar />
 				</main>
-				{track && <Bar track={track} />}
+				{currTrackState && <Bar />}
 			</div>
 		</div>
 	)

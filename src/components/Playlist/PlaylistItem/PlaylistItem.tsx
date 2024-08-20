@@ -2,23 +2,28 @@ import React from 'react'
 import styles from './PlaylistItem.module.css'
 import { tracksDataTypes } from '@/lib/types'
 import { trackFormattedTime } from '@/utils/helpers'
+import { useAppDispatch, useAppSelector } from '@/store/store'
+import { setCurrTrackState } from '@/store/features/currPlaylistSlice'
 
 type Props = {
-	tracksData: tracksDataTypes[]
-	setTrack: (arg: tracksDataTypes) => void
 	load: boolean
 }
 
-export default function PlaylistItem({ tracksData, setTrack, load }: Props) {
+export default function PlaylistItem({ load }: Props) {
+	const currPlaylistState = useAppSelector(
+		state => state.currPlaylist.currPlaylistState,
+	)
+	const dispatch = useAppDispatch()
+
 	return (
 		<div className={styles.content__playlist}>
 			{load
 				? 'Загрузка треков...'
-				: tracksData.map((track: tracksDataTypes) => (
+				: currPlaylistState.map((track: tracksDataTypes) => (
 						<div
 							className={styles.playlist__item}
 							key={track._id}
-							onClick={() => setTrack(track)}
+							onClick={() => dispatch(setCurrTrackState(track))}
 						>
 							<div className={styles.playlist__track}>
 								<div className={styles.track__title}>

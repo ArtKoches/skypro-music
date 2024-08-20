@@ -1,6 +1,5 @@
 'use client'
 
-import { tracksDataTypes } from '@/lib/types'
 import { useEffect, useRef, useState } from 'react'
 import Controls from '../Player/Controls/Controls'
 import PlayingTrack from '../Player/PlayingTrack/PlayingTrack'
@@ -8,12 +7,12 @@ import Volume from '../Volume/Volume'
 import styles from './Bar.module.css'
 import Progress from '../Progress/Progress'
 import { trackFormattedTime } from '@/utils/helpers'
+import { useAppSelector } from '@/store/store'
 
-type Props = {
-	track: tracksDataTypes | null
-}
-
-export default function Bar({ track }: Props) {
+export default function Bar() {
+	const currTrackState = useAppSelector(
+		state => state.currPlaylist.currTrackState,
+	)
 	const [playing, setPlaying] = useState<boolean>(true)
 	const [loop, setLoop] = useState<boolean>(false)
 	const [volume, setVolume] = useState<number>(0.5)
@@ -70,7 +69,7 @@ export default function Bar({ track }: Props) {
 				<audio
 					autoPlay
 					ref={audioRef}
-					src={track?.track_file}
+					src={currTrackState?.track_file}
 					onTimeUpdate={handleTimeUpdate}
 				>
 					Ваш браузер не поддерживает встроенное аудио.
@@ -90,7 +89,7 @@ export default function Bar({ track }: Props) {
 							loop={loop}
 							handleWarningInfo={handleWarningInfo}
 						/>
-						<PlayingTrack track={track} />
+						<PlayingTrack />
 					</div>
 					<Volume value={volume} onChange={handleChangeVolume} />
 				</div>

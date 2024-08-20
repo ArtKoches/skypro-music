@@ -1,13 +1,13 @@
 import React from 'react'
 import styles from './PlayingTrack.module.css'
 import classNames from 'classnames'
-import { tracksDataTypes } from '@/lib/types'
+import { useAppSelector } from '@/store/store'
 
-type Props = {
-	track: tracksDataTypes | null
-}
+export default function PlayingTrack() {
+	const currTrackState = useAppSelector(
+		state => state.currPlaylist.currTrackState,
+	)
 
-export default function PlayingTrack({ track }: Props) {
 	return (
 		<div className={styles.player__track_play}>
 			<div className={styles.track_play__contain}>
@@ -18,12 +18,12 @@ export default function PlayingTrack({ track }: Props) {
 				</div>
 				<div className={styles.track_play__author}>
 					<a className={styles.track_play__author_link} href='http://'>
-						{track?.author}
+						{currTrackState?.author}
 					</a>
 				</div>
 				<div className={styles.track_play__album}>
 					<a className={styles.track_play__album_link} href='http://'>
-						{track?.album}
+						{currTrackState?.album}
 					</a>
 				</div>
 			</div>
