@@ -1,22 +1,26 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Controls from '../Player/Controls/Controls'
 import PlayingTrack from '../Player/PlayingTrack/PlayingTrack'
 import Volume from '../Volume/Volume'
 import styles from './Bar.module.css'
 import Progress from '../Progress/Progress'
 import { trackFormattedTime } from '@/utils/helpers'
-import { useAppSelector } from '@/store/store'
+import { useAppDispatch, useAppSelector } from '@/store/store'
+import {
+	setElapsedTime,
+	setIsLoop,
+	setIsPlaying,
+	setVolume,
+} from '@/store/features/barControlsSlice'
 
 export default function Bar() {
-	const currTrackState = useAppSelector(
-		state => state.currPlaylist.currTrackState,
+	const { currTrackState } = useAppSelector(state => state.currPlaylist)
+	const { isPlaying, isLoop, volume, elapsedTime } = useAppSelector(
+		state => state.barControls,
 	)
-	const [playing, setPlaying] = useState<boolean>(true)
-	const [loop, setLoop] = useState<boolean>(false)
-	const [volume, setVolume] = useState<number>(0.5)
-	const [currentTime, setCurrentTime] = useState<number>(0)
+	const dispatch = useAppDispatch()
 	const audioRef = useRef<HTMLAudioElement | null>(null)
 	const audio = audioRef.current
 	const duration = audio?.duration || 0
@@ -28,7 +32,7 @@ export default function Bar() {
 	}, [volume, audio])
 
 	const handleChangeVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setVolume(Number(event.target.value))
+		dispatch(setVolume(Number(event.target.value)))
 	}
 
 	const handleChangeDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,21 +42,31 @@ export default function Bar() {
 	}
 
 	const handleTimeUpdate = (event: React.ChangeEvent<HTMLAudioElement>) => {
-		setCurrentTime(event.currentTarget.currentTime)
+		dispatch(setElapsedTime(event.currentTarget.currentTime))
 	}
 
 	const togglePlay = () => {
 		if (audio) {
-			playing ? audio.pause() : audio.play()
+			if (isPlaying) {
+				audio.pause()
+				dispatch(setIsPlaying(false))
+			} else {
+				audio.play()
+				dispatch(setIsPlaying(true))
+			}
 		}
-		setPlaying(prev => !prev)
 	}
 
 	const toggleLoop = () => {
 		if (audio) {
-			loop ? (audio.loop = false) : (audio.loop = true)
+			if (isLoop) {
+				audio.loop = false
+				dispatch(setIsLoop(false))
+			} else {
+				audio.loop = true
+				dispatch(setIsLoop(true))
+			}
 		}
-		setLoop(prev => !prev)
 	}
 
 	// FIXME:
@@ -63,7 +77,7 @@ export default function Bar() {
 			<div className={styles.bar__content}>
 				<div className={styles.bar__timer}>
 					<p>
-						{trackFormattedTime(currentTime)} | {trackFormattedTime(duration)}
+						{trackFormattedTime(elapsedTime)} | {trackFormattedTime(duration)}
 					</p>
 				</div>
 				<audio
@@ -76,7 +90,7 @@ export default function Bar() {
 				</audio>
 				<Progress
 					max={duration}
-					value={currentTime}
+					value={elapsedTime}
 					step={0.01}
 					onChange={handleChangeDuration}
 				/>
@@ -84,9 +98,7 @@ export default function Bar() {
 					<div className={styles.bar__player}>
 						<Controls
 							togglePlay={togglePlay}
-							playing={playing}
 							toggleLoop={toggleLoop}
-							loop={loop}
 							handleWarningInfo={handleWarningInfo}
 						/>
 						<PlayingTrack />

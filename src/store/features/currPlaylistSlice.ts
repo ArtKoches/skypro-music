@@ -4,11 +4,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 type CurrPlaylistStateType = {
 	currPlaylistState: tracksDataTypes[]
 	currTrackState: tracksDataTypes | null
+	isLoading: boolean
 }
 
 const initialState: CurrPlaylistStateType = {
 	currPlaylistState: [],
 	currTrackState: null,
+	isLoading: true,
 }
 
 const currPlaylistSlice = createSlice({
@@ -24,9 +26,12 @@ const currPlaylistSlice = createSlice({
 		) => {
 			state.currTrackState = action.payload
 		},
+		setIsLoading: (state, action: PayloadAction<boolean>) => {
+			state.isLoading = action.payload
+		},
 	},
 })
 
-export const { setCurrPlaylistState, setCurrTrackState } =
+export const { setCurrPlaylistState, setCurrTrackState, setIsLoading } =
 	currPlaylistSlice.actions
 export const currPlaylistReducer = currPlaylistSlice.reducer

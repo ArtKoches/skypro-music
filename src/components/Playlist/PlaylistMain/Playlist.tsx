@@ -4,11 +4,7 @@ import PlaylistItem from '../PlaylistItem/PlaylistItem'
 import PlaylistTitle from '../PlaylistTitle/PlaylistTitle'
 import styles from './Playlist.module.css'
 
-type Props = {
-	load: boolean
-}
-
-export default function Playlist({ load }: Props) {
+export default function Playlist() {
 	return (
 		<div className={styles.main__centerblock}>
 			<Search />
@@ -16,7 +12,7 @@ export default function Playlist({ load }: Props) {
 			<Filter />
 			<div className={styles.centerblock__content}>
 				<PlaylistTitle />
-				<PlaylistItem load={load} />
+				<PlaylistItem />
 			</div>
 		</div>
 	)

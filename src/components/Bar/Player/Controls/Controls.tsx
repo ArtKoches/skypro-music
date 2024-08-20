@@ -1,22 +1,21 @@
 import React from 'react'
 import styles from './Controls.module.css'
 import classNames from 'classnames'
+import { useAppSelector } from '@/store/store'
 
 type Props = {
 	togglePlay: () => void
-	playing: boolean
 	toggleLoop: () => void
-	loop: boolean
 	handleWarningInfo: () => void
 }
 
 export default function Controls({
 	togglePlay,
-	playing,
 	toggleLoop,
-	loop,
 	handleWarningInfo,
 }: Props) {
+	const { isPlaying, isLoop } = useAppSelector(state => state.barControls)
+
 	return (
 		<div className={styles.player__controls}>
 			<div className={styles.player__btn_prev} onClick={handleWarningInfo}>
@@ -30,7 +29,7 @@ export default function Controls({
 			>
 				<svg className={styles.player__btn_play_svg}>
 					<use
-						xlinkHref={`img/icon/sprite.svg#${playing ? 'icon-pause' : 'icon-play'}`}
+						xlinkHref={`img/icon/sprite.svg#${isPlaying ? 'icon-pause' : 'icon-play'}`}
 					/>
 				</svg>
 			</div>
@@ -45,7 +44,7 @@ export default function Controls({
 			>
 				<svg
 					className={classNames(styles.player__btn_repeat_svg, {
-						[styles._btn_active]: loop,
+						[styles._btn_active]: isLoop,
 					})}
 				>
 					<use xlinkHref='img/icon/sprite.svg#icon-repeat' />

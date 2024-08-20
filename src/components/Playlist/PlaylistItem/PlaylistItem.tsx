@@ -4,33 +4,46 @@ import { tracksDataTypes } from '@/lib/types'
 import { trackFormattedTime } from '@/utils/helpers'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 import { setCurrTrackState } from '@/store/features/currPlaylistSlice'
+import { setIsPlaying } from '@/store/features/barControlsSlice'
 
-type Props = {
-	load: boolean
-}
-
-export default function PlaylistItem({ load }: Props) {
-	const currPlaylistState = useAppSelector(
-		state => state.currPlaylist.currPlaylistState,
+export default function PlaylistItem() {
+	const { currPlaylistState, currTrackState, isLoading } = useAppSelector(
+		state => state.currPlaylist,
 	)
+	const { isPlaying } = useAppSelector(state => state.barControls)
 	const dispatch = useAppDispatch()
+
+	const handlePlay = (track: tracksDataTypes) => {
+		dispatch(setCurrTrackState(track))
+		dispatch(setIsPlaying(true))
+	}
 
 	return (
 		<div className={styles.content__playlist}>
-			{load
+			{isLoading
 				? 'Загрузка треков...'
 				: currPlaylistState.map((track: tracksDataTypes) => (
 						<div
 							className={styles.playlist__item}
 							key={track._id}
-							onClick={() => dispatch(setCurrTrackState(track))}
+							onClick={() => handlePlay(track)}
 						>
 							<div className={styles.playlist__track}>
 								<div className={styles.track__title}>
 									<div className={styles.track__title_image}>
-										<svg className={styles.track__title_svg}>
-											<use xlinkHref='img/icon/sprite.svg#icon-note' />
-										</svg>
+										{currTrackState?._id === track._id ? (
+											<div
+												className={
+													isPlaying
+														? styles.playing_dot
+														: styles.not_playing_dot
+												}
+											></div>
+										) : (
+											<svg className={styles.track__title_svg}>
+												<use xlinkHref='img/icon/sprite.svg#icon-note' />
+											</svg>
+										)}
 									</div>
 									<div>
 										<a className={styles.track__title_link} href='#'>

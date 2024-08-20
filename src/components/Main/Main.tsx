@@ -7,16 +7,16 @@ import Nav from '../Nav/Nav'
 import Playlist from '../Playlist/PlaylistMain/Playlist'
 import Sidebar from '../Sidebar/Sidebar'
 import styles from './Main.module.css'
-import { useEffect, useState } from 'react'
-import { setCurrPlaylistState } from '@/store/features/currPlaylistSlice'
+import { useEffect } from 'react'
+import {
+	setCurrPlaylistState,
+	setIsLoading,
+} from '@/store/features/currPlaylistSlice'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export default function Main() {
-	const currTrackState = useAppSelector(
-		state => state.currPlaylist.currTrackState,
-	)
+	const { currTrackState } = useAppSelector(state => state.currPlaylist)
 	const dispatch = useAppDispatch()
-	const [load, setLoad] = useState<boolean>(true)
 
 	useEffect(() => {
 		tracksApi
@@ -25,7 +25,7 @@ export default function Main() {
 			.catch(error => {
 				if (error instanceof Error) throw new Error(error.message)
 			})
-			.finally(() => setLoad(false))
+			.finally(() => dispatch(setIsLoading(false)))
 	}, [dispatch])
 
 	return (
@@ -33,7 +33,7 @@ export default function Main() {
 			<div className={styles.container}>
 				<main className={styles.main}>
 					<Nav />
-					<Playlist load={load} />
+					<Playlist />
 					<Sidebar />
 				</main>
 				{currTrackState && <Bar />}
