@@ -71,12 +71,6 @@
 	cursor: pointer;
 }
 
-._btn_active {
-	fill: transparent;
-	stroke: #ffffff;
-	cursor: pointer;
-}
-
 ._btn_icon:hover svg {
 	fill: transparent;
 	stroke: #acacac;
@@ -110,4 +104,10 @@
 	height: 12px;
 	fill: transparent;
 	stroke: #696969;
+}
+
+.active_btn {
+	fill: transparent;
+	stroke: #ffffff;
+	cursor: pointer;
 }

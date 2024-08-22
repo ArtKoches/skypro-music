@@ -1,24 +1,23 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import Controls from '../Player/Controls/Controls'
-import PlayingTrack from '../Player/PlayingTrack/PlayingTrack'
-import Volume from '../Volume/Volume'
-import styles from './Bar.module.css'
-import Progress from '../Progress/Progress'
-import { trackFormattedTime } from '@/utils/helpers'
-import { useAppDispatch, useAppSelector } from '@/store/store'
 import {
 	setElapsedTime,
 	setIsLoop,
 	setIsPlaying,
 	setVolume,
-} from '@/store/features/barControlsSlice'
+} from '@/store/features/playlistSlice'
+import { useAppDispatch, useAppSelector } from '@/store/store'
+import { trackFormattedTime } from '@/utils/helpers'
+import { useEffect, useRef } from 'react'
+import Controls from '../Player/Controls/Controls'
+import PlayingTrack from '../Player/PlayingTrack/PlayingTrack'
+import Progress from '../Progress/Progress'
+import Volume from '../Volume/Volume'
+import styles from './Bar.module.css'
 
 export default function Bar() {
-	const { currTrackState } = useAppSelector(state => state.currPlaylist)
-	const { isPlaying, isLoop, volume, elapsedTime } = useAppSelector(
-		state => state.barControls,
+	const { currTrack, isPlaying, isLoop, volume, elapsedTime } = useAppSelector(
+		state => state.currPlaylist,
 	)
 	const dispatch = useAppDispatch()
 	const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -69,9 +68,6 @@ export default function Bar() {
 		}
 	}
 
-	// FIXME:
-	const handleWarningInfo = () => alert('Еще не реализовано')
-
 	return (
 		<div className={styles.bar}>
 			<div className={styles.bar__content}>
@@ -83,7 +79,7 @@ export default function Bar() {
 				<audio
 					autoPlay
 					ref={audioRef}
-					src={currTrackState?.track_file}
+					src={currTrack?.track_file}
 					onTimeUpdate={handleTimeUpdate}
 				>
 					Ваш браузер не поддерживает встроенное аудио.
@@ -96,11 +92,7 @@ export default function Bar() {
 				/>
 				<div className={styles.bar__player_block}>
 					<div className={styles.bar__player}>
-						<Controls
-							togglePlay={togglePlay}
-							toggleLoop={toggleLoop}
-							handleWarningInfo={handleWarningInfo}
-						/>
+						<Controls togglePlay={togglePlay} toggleLoop={toggleLoop} />
 						<PlayingTrack />
 					</div>
 					<Volume value={volume} onChange={handleChangeVolume} />

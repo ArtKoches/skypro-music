@@ -1,20 +1,17 @@
-import React from 'react'
-import styles from './PlaylistItem.module.css'
 import { tracksDataTypes } from '@/lib/types'
-import { trackFormattedTime } from '@/utils/helpers'
+import { setCurrTrack, setIsPlaying } from '@/store/features/playlistSlice'
 import { useAppDispatch, useAppSelector } from '@/store/store'
-import { setCurrTrackState } from '@/store/features/currPlaylistSlice'
-import { setIsPlaying } from '@/store/features/barControlsSlice'
+import { trackFormattedTime } from '@/utils/helpers'
+import styles from './PlaylistItem.module.css'
 
 export default function PlaylistItem() {
-	const { currPlaylistState, currTrackState, isLoading } = useAppSelector(
+	const { currPlaylist, currTrack, isLoading, isPlaying } = useAppSelector(
 		state => state.currPlaylist,
 	)
-	const { isPlaying } = useAppSelector(state => state.barControls)
 	const dispatch = useAppDispatch()
 
-	const handlePlay = (track: tracksDataTypes) => {
-		dispatch(setCurrTrackState(track))
+	const handlePlay = (track: tracksDataTypes, tracks: tracksDataTypes[]) => {
+		dispatch(setCurrTrack({ currTrack: track, currPlaylist: tracks }))
 		dispatch(setIsPlaying(true))
 	}
 
@@ -22,16 +19,16 @@ export default function PlaylistItem() {
 		<div className={styles.content__playlist}>
 			{isLoading
 				? 'Загрузка треков...'
-				: currPlaylistState.map((track: tracksDataTypes) => (
+				: currPlaylist.map((track: tracksDataTypes) => (
 						<div
 							className={styles.playlist__item}
 							key={track._id}
-							onClick={() => handlePlay(track)}
+							onClick={() => handlePlay(track, currPlaylist)}
 						>
 							<div className={styles.playlist__track}>
 								<div className={styles.track__title}>
 									<div className={styles.track__title_image}>
-										{currTrackState?._id === track._id ? (
+										{currTrack?._id === track._id ? (
 											<div
 												className={
 													isPlaying

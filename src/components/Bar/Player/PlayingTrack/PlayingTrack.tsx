@@ -4,9 +4,7 @@ import classNames from 'classnames'
 import { useAppSelector } from '@/store/store'
 
 export default function PlayingTrack() {
-	const currTrackState = useAppSelector(
-		state => state.currPlaylist.currTrackState,
-	)
+	const { currTrack } = useAppSelector(state => state.currPlaylist)
 
 	return (
 		<div className={styles.player__track_play}>
@@ -18,12 +16,12 @@ export default function PlayingTrack() {
 				</div>
 				<div className={styles.track_play__author}>
 					<a className={styles.track_play__author_link} href='http://'>
-						{currTrackState?.author}
+						{currTrack?.author}
 					</a>
 				</div>
 				<div className={styles.track_play__album}>
 					<a className={styles.track_play__album_link} href='http://'>
-						{currTrackState?.album}
+						{currTrack?.album}
 					</a>
 				</div>
 			</div>

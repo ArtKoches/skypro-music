@@ -6,15 +6,13 @@ import {
 } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { authReducer } from './features/authSlice'
-import { currPlaylistReducer } from './features/currPlaylistSlice'
-import { barControlsReducer } from './features/barControlsSlice'
+import { currPlaylistReducer } from './features/playlistSlice'
 
 export const makeStore = () => {
 	return configureStore({
 		reducer: combineReducers({
 			auth: authReducer,
 			currPlaylist: currPlaylistReducer,
-			barControls: barControlsReducer,
 		}),
 	})
 }

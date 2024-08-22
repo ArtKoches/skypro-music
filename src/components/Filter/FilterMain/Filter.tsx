@@ -13,9 +13,7 @@ const filterTitles: string[] = [
 ]
 
 export default function Filter() {
-	const currPlaylistState = useAppSelector(
-		state => state.currPlaylist.currPlaylistState,
-	)
+	const { currPlaylist } = useAppSelector(state => state.currPlaylist)
 	const [openFilterCategory, setOpenFilterCategory] = useState<string | null>(
 		null,
 	)
@@ -32,13 +30,13 @@ export default function Filter() {
 		switch (option) {
 			case filterTypes.author:
 				return Array.from(
-					new Set<string>(currPlaylistState.map(track => track.author)),
+					new Set<string>(currPlaylist.map(track => track.author)),
 				)
 			case filterTypes.year:
 				return ['По умолчанию', 'Сначала новые', 'Сначала старые']
 			case filterTypes.genre:
 				return Array.from(
-					new Set<string>(currPlaylistState.map(track => track.genre).flat()),
+					new Set<string>(currPlaylist.map(track => track.genre).flat()),
 				)
 			default:
 				return []

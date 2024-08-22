@@ -2,26 +2,23 @@
 
 import { tracksApi } from '@/api/api'
 import { tracksDataTypes } from '@/lib/types'
+import { setCurrPlaylist, setIsLoading } from '@/store/features/playlistSlice'
+import { useAppDispatch, useAppSelector } from '@/store/store'
+import { useEffect } from 'react'
 import Bar from '../Bar/BarMain/Bar'
 import Nav from '../Nav/Nav'
 import Playlist from '../Playlist/PlaylistMain/Playlist'
 import Sidebar from '../Sidebar/Sidebar'
 import styles from './Main.module.css'
-import { useEffect } from 'react'
-import {
-	setCurrPlaylistState,
-	setIsLoading,
-} from '@/store/features/currPlaylistSlice'
-import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export default function Main() {
-	const { currTrackState } = useAppSelector(state => state.currPlaylist)
+	const { currTrack } = useAppSelector(state => state.currPlaylist)
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
 		tracksApi
 			.getTracks()
-			.then((resp: tracksDataTypes[]) => dispatch(setCurrPlaylistState(resp)))
+			.then((resp: tracksDataTypes[]) => dispatch(setCurrPlaylist(resp)))
 			.catch(error => {
 				if (error instanceof Error) throw new Error(error.message)
 			})
@@ -36,7 +33,7 @@ export default function Main() {
 					<Playlist />
 					<Sidebar />
 				</main>
-				{currTrackState && <Bar />}
+				{currTrack && <Bar />}
 			</div>
 		</div>
 	)
