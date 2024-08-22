@@ -4,6 +4,7 @@ import {
 	setElapsedTime,
 	setIsLoop,
 	setIsPlaying,
+	setNextTrack,
 	setVolume,
 } from '@/store/features/playlistSlice'
 import { useAppDispatch, useAppSelector } from '@/store/store'
@@ -28,7 +29,18 @@ export default function Bar() {
 		if (audio) {
 			audio.volume = volume
 		}
-	}, [volume, audio])
+	}, [audio, volume])
+
+	useEffect(() => {
+		if (audio) {
+			audio.addEventListener('ended', () => dispatch(setNextTrack()))
+		}
+		return () => {
+			if (audio) {
+				audio.removeEventListener('ended', () => dispatch(setNextTrack()))
+			}
+		}
+	}, [audio, dispatch])
 
 	const handleChangeVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
 		dispatch(setVolume(Number(event.target.value)))
