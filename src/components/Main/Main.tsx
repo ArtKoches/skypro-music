@@ -1,6 +1,6 @@
 'use client'
 
-import { tracksApi } from '@/api/api'
+import { tracksApi } from '@/api/tracksApi'
 import { tracksDataTypes } from '@/lib/types'
 import { setCurrPlaylist, setIsLoading } from '@/store/features/playlistSlice'
 import { useAppDispatch, useAppSelector } from '@/store/store'

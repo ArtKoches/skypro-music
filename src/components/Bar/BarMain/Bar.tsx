@@ -1,15 +1,13 @@
 'use client'
 
 import {
-	setElapsedTime,
 	setIsLoop,
 	setIsPlaying,
 	setNextTrack,
-	setVolume,
 } from '@/store/features/playlistSlice'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 import { trackFormattedTime } from '@/utils/helpers'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Controls from '../Player/Controls/Controls'
 import PlayingTrack from '../Player/PlayingTrack/PlayingTrack'
 import Progress from '../Progress/Progress'
@@ -17,10 +15,14 @@ import Volume from '../Volume/Volume'
 import styles from './Bar.module.css'
 
 export default function Bar() {
-	const { currTrack, isPlaying, isLoop, volume, elapsedTime } = useAppSelector(
+	const { currTrack, isPlaying, isLoop } = useAppSelector(
 		state => state.currPlaylist,
 	)
 	const dispatch = useAppDispatch()
+
+	const [volume, setVolume] = useState(0.5)
+	const [elapsedTime, setElapsedTime] = useState(0)
+
 	const audioRef = useRef<HTMLAudioElement | null>(null)
 	const audio = audioRef.current
 	const duration = audio?.duration || 0
@@ -43,7 +45,7 @@ export default function Bar() {
 	}, [audio, dispatch])
 
 	const handleChangeVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(setVolume(Number(event.target.value)))
+		setVolume(Number(event.target.value))
 	}
 
 	const handleChangeDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +55,7 @@ export default function Bar() {
 	}
 
 	const handleTimeUpdate = (event: React.ChangeEvent<HTMLAudioElement>) => {
-		dispatch(setElapsedTime(event.currentTarget.currentTime))
+		setElapsedTime(event.currentTarget.currentTime)
 	}
 
 	const togglePlay = () => {

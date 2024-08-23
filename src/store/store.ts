@@ -5,13 +5,13 @@ import {
 	useStore,
 } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { authReducer } from './features/authSlice'
+import { userReducer } from './features/userSlice'
 import { currPlaylistReducer } from './features/playlistSlice'
 
 export const makeStore = () => {
 	return configureStore({
 		reducer: combineReducers({
-			auth: authReducer,
+			user: userReducer,
 			currPlaylist: currPlaylistReducer,
 		}),
 	})

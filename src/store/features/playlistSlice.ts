@@ -9,8 +9,6 @@ type CurrPlaylistStateType = {
 	isPlaying: boolean
 	isLoop: boolean
 	isShuffle: boolean
-	volume: number
-	elapsedTime: number
 }
 
 const initialState: CurrPlaylistStateType = {
@@ -21,8 +19,6 @@ const initialState: CurrPlaylistStateType = {
 	isPlaying: false,
 	isLoop: false,
 	isShuffle: false,
-	volume: 0.5,
-	elapsedTime: 0,
 }
 
 const currPlaylistSlice = createSlice({
@@ -89,14 +85,6 @@ const currPlaylistSlice = createSlice({
 				() => Math.random() - 0.5,
 			)
 		},
-
-		setVolume: (state, action: PayloadAction<number>) => {
-			state.volume = action.payload
-		},
-
-		setElapsedTime: (state, action: PayloadAction<number>) => {
-			state.elapsedTime = action.payload
-		},
 	},
 })
 
@@ -109,7 +97,5 @@ export const {
 	setIsPlaying,
 	setIsLoop,
 	setIsShuffle,
-	setVolume,
-	setElapsedTime,
 } = currPlaylistSlice.actions
 export const currPlaylistReducer = currPlaylistSlice.reducer

@@ -7,8 +7,8 @@ import Link from 'next/link'
 import { routes } from '@/lib/routes'
 
 export default function Nav() {
-	const [openNavMenu, setOpenNavMenu] = useState<boolean>(false)
-	const handleOpenMenu = () => setOpenNavMenu(prev => !prev)
+	const [isOpenNavMenu, setIsOpenNavMenu] = useState(false) 
+	const handleOpenMenu = () => setIsOpenNavMenu(prev => !prev)
 
 	return (
 		<nav className={styles.main__nav}>
@@ -28,7 +28,7 @@ export default function Nav() {
 				<span className={styles.burger__line} />
 			</div>
 
-			{openNavMenu && (
+			{isOpenNavMenu && (
 				<div className={styles.nav__menu}>
 					<ul className={styles.menu__list}>
 						<li className={styles.menu__item}>
