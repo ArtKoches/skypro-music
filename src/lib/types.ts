@@ -16,3 +16,8 @@ export enum filterTypes {
 	year = 'году выпуска',
 	genre = 'жанру',
 }
+
+export type SignInDataType = {
+	email: string
+	password: string
+}

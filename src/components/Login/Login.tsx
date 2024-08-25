@@ -1,29 +1,54 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Login.module.css'
 import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import { routes } from '@/lib/routes'
-import { useAppDispatch, useAppSelector } from '@/store/store'
-import { setLoginData } from '@/store/features/userSlice'
+import { useAppDispatch } from '@/store/store'
 import { userApi } from '@/api/userApi'
 import { useRouter } from 'next/navigation'
+import ErrorMsg from '../ErrorMsg/ErrorMsg'
 
 export default function Login() {
-	const { loginData } = useAppSelector(state => state.user)
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 
+	const [error, setError] = useState<string | null>(null)
+	const [loginData, setLoginData] = useState({
+		email: '',
+		password: '',
+	})
+
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target
-		dispatch(setLoginData({ ...loginData, [name]: value }))
+		setLoginData({ ...loginData, [name]: value })
+		setError(null)
 	}
 
-	const login = async () => {
-		await dispatch(userApi.getUser(loginData)).unwrap()
-		router.push(routes.HOME)
+	const signIn = async () => {
+		if (!loginData.email.trim()) {
+			setError('Введите почту')
+			return
+		}
+		if (!loginData.password.trim()) {
+			setError('Введите пароль')
+			return
+		}
+		if (loginData.password.length < 6) {
+			setError('Пароль должен содержать не менее 6 символов.')
+			return
+		}
+
+		try {
+			await dispatch(userApi.getUser(loginData)).unwrap()
+			router.push(routes.HOME)
+		} catch (err: unknown) {
+			const error = err as Error
+			setError(error.message)
+			console.error(error.message)
+		}
 	}
 
 	return (
@@ -58,8 +83,8 @@ export default function Login() {
 							onChange={onChange}
 							autoComplete='off'
 						/>
-						<button className={styles.modal__btn_enter} onClick={login}>
-							{/* <a href='../index.html'>Войти</a> */}
+						{error && <ErrorMsg error={error} />}
+						<button className={styles.modal__btn_enter} onClick={signIn}>
 							<a href='#'>Войти</a>
 						</button>
 						<button className={styles.modal__btn_signup}>

@@ -12,3 +12,21 @@ export const handleVolumeProgress = (el: HTMLInputElement | null) => {
 		)
 	}
 }
+
+export const apiErrorHandler = (error: number) => {
+	switch (error) {
+		case 400:
+			throw new Error('Некорректный запрос')
+		case 401:
+			throw new Error('Пользователь с таким email или паролем не найден')
+		case 403:
+			throw new Error('Введенный Email уже занят.')
+		case 412:
+			throw new Error('Неверный формат Email адреса.')
+		case 500:
+			throw new Error('Сервер сломался')
+
+		default:
+			throw new Error('Неизвестная ошибка')
+	}
+}

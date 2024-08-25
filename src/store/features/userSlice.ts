@@ -1,17 +1,12 @@
 import { userApi } from '@/api/userApi'
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 type UserStateType = {
 	user: string | null
-	loginData: { email: string; password: string }
 }
 
 const initialState: UserStateType = {
 	user: null,
-	loginData: {
-		email: '',
-		password: '',
-	},
 }
 
 const userSlice = createSlice({
@@ -20,20 +15,16 @@ const userSlice = createSlice({
 	reducers: {
 		logout: state => {
 			state.user = null
-		},
-		setLoginData: (
-			state,
-			action: PayloadAction<{ email: string; password: string }>,
-		) => {
-			state.loginData = action.payload
+			localStorage.removeItem('user')
 		},
 	},
 	extraReducers: builder => {
 		builder.addCase(userApi.getUser.fulfilled, (state, action) => {
 			state.user = action.payload
+			localStorage.setItem('user', JSON.stringify(state.user))
 		})
 	},
 })
 
-export const { logout, setLoginData } = userSlice.actions
+export const { logout } = userSlice.actions
 export const userReducer = userSlice.reducer
