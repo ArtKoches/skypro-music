@@ -56,7 +56,7 @@ export default function Login() {
 			<div className={styles.container_enter}>
 				<div className={styles.modal__block}>
 					<form className={styles.modal__form_login} action='#'>
-						<a href='../'>
+						<a href='#'>
 							<div className={styles.modal__logo}>
 								<Image
 									src='/img/logo_modal.png'

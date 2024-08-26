@@ -1,12 +1,14 @@
 import { userApi } from '@/api/userApi'
+import { UserDataType } from '@/lib/types'
+import { getUserFromLs } from '@/utils/helpers'
 import { createSlice } from '@reduxjs/toolkit'
 
 type UserStateType = {
-	user: string | null
+	user: UserDataType | null
 }
 
 const initialState: UserStateType = {
-	user: null,
+	user: getUserFromLs(),
 }
 
 const userSlice = createSlice({

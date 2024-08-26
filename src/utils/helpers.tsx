@@ -22,11 +22,20 @@ export const apiErrorHandler = (error: number) => {
 		case 403:
 			throw new Error('Введенный Email уже занят.')
 		case 412:
-			throw new Error('Неверный формат Email адреса.')
+			throw new Error('Неверный формат Email.')
 		case 500:
 			throw new Error('Сервер сломался')
 
 		default:
 			throw new Error('Неизвестная ошибка')
+	}
+}
+
+export const getUserFromLs = () => {
+	try {
+		const user = localStorage.getItem('user')
+		return user && JSON.parse(user)
+	} catch {
+		return null
 	}
 }

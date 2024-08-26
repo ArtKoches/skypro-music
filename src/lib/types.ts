@@ -21,3 +21,9 @@ export type SignInDataType = {
 	email: string
 	password: string
 }
+
+export type UserDataType = {
+	email: string
+	username: string
+	_id: number
+}

@@ -13,7 +13,7 @@ export default function PrivateRoute({ children }: PropsWithChildren) {
 		if (!user) {
 			router.push(routes.LOGIN)
 		}
-	}, [router])
+	}, [user])
 
 	return <>{children}</>
 }
