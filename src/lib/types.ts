@@ -17,13 +17,19 @@ export enum filterTypes {
 	genre = 'жанру',
 }
 
+export type UserDataType = {
+	email: string
+	username: string
+	_id: number
+}
+
 export type SignInDataType = {
 	email: string
 	password: string
 }
 
-export type UserDataType = {
+export type SignUpDataType = {
 	email: string
+	password: string
 	username: string
-	_id: number
 }

@@ -21,10 +21,14 @@ const userSlice = createSlice({
 		},
 	},
 	extraReducers: builder => {
-		builder.addCase(userApi.getUser.fulfilled, (state, action) => {
-			state.user = action.payload
-			localStorage.setItem('user', JSON.stringify(state.user))
-		})
+		builder
+			.addCase(userApi.getUser.fulfilled, (state, action) => {
+				state.user = action.payload
+				localStorage.setItem('user', JSON.stringify(state.user))
+			})
+			.addCase(userApi.regUser.fulfilled, (state, action) => {
+				state.user = action.payload
+			})
 	},
 })
 
