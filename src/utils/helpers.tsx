@@ -39,3 +39,12 @@ export const getUserFromLs = () => {
 		return null
 	}
 }
+
+export const getTokensFromLs = () => {
+	try {
+		const tokens = localStorage.getItem('tokens')
+		return tokens && JSON.parse(tokens)
+	} catch {
+		return null
+	}
+}

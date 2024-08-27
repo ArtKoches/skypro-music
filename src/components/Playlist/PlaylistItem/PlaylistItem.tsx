@@ -11,8 +11,8 @@ export default function PlaylistItem() {
 	)
 	const dispatch = useAppDispatch()
 
-	const track = currTrack as TrackDataType
-	const { isLiked, handleLike } = useLikeTrack(track)
+	//FIXME:
+	const { isLiked, handleLike } = useLikeTrack()
 
 	const handlePlay = (track: TrackDataType, tracks: TrackDataType[]) => {
 		dispatch(setCurrTrack({ currTrack: track, currPlaylist: tracks }))

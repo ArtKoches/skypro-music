@@ -5,10 +5,12 @@ import styles from './Nav.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { routes } from '@/lib/routes'
+import { useAppSelector } from '@/store/store'
 
 export default function Nav() {
-	const [isOpenNavMenu, setIsOpenNavMenu] = useState(false) 
+	const [isOpenNavMenu, setIsOpenNavMenu] = useState(false)
 	const handleOpenMenu = () => setIsOpenNavMenu(prev => !prev)
+	const { tokens } = useAppSelector(state => state.user)
 
 	return (
 		<nav className={styles.main__nav}>
@@ -36,11 +38,13 @@ export default function Nav() {
 								Главное
 							</a>
 						</li>
-						<li className={styles.menu__item}>
-							<a href='#' className={styles.menu__link}>
-								Мой плейлист
-							</a>
-						</li>
+						{tokens && (
+							<li className={styles.menu__item}>
+								<a href='#' className={styles.menu__link}>
+									Мой плейлист
+								</a>
+							</li>
+						)}
 						<li className={styles.menu__item}>
 							<Link className={styles.menu__link} href={routes.LOGIN}>
 								Войти

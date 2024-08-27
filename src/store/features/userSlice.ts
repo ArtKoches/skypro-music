@@ -1,6 +1,6 @@
 import { userApi } from '@/api/userApi'
 import { TokenType, UserDataType } from '@/lib/types'
-import { getUserFromLs } from '@/utils/helpers'
+import { getTokensFromLs, getUserFromLs } from '@/utils/helpers'
 import { createSlice } from '@reduxjs/toolkit'
 
 type UserStateType = {
@@ -10,7 +10,7 @@ type UserStateType = {
 
 const initialState: UserStateType = {
 	user: getUserFromLs(),
-	tokens: null,
+	tokens: getTokensFromLs(),
 }
 
 const userSlice = createSlice({
@@ -20,6 +20,7 @@ const userSlice = createSlice({
 		logout: state => {
 			state.user = null
 			localStorage.removeItem('user')
+			localStorage.removeItem('tokens')
 		},
 	},
 	extraReducers: builder => {
@@ -30,6 +31,10 @@ const userSlice = createSlice({
 			})
 			.addCase(userApi.regUser.fulfilled, (state, action) => {
 				state.user = action.payload
+			})
+			.addCase(userApi.getToken.fulfilled, (state, action) => {
+				state.tokens = action.payload
+				localStorage.setItem('tokens', JSON.stringify(state.tokens))
 			})
 	},
 })

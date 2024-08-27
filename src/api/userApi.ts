@@ -36,4 +36,20 @@ export const userApi = {
 			return json
 		},
 	),
+
+	getToken: createAsyncThunk(
+		'user/getToken',
+		async ({ email, password }: SignInDataType) => {
+			const resp = await fetch(`${baseHost}token/`, {
+				method: 'POST',
+				body: JSON.stringify({ email, password }),
+				headers: { 'content-type': 'application/json' },
+			})
+			const json = await resp.json()
+			if (!resp.ok) {
+				apiErrorHandler(resp.status)
+			}
+			return json
+		},
+	),
 }
