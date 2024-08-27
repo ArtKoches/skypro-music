@@ -15,7 +15,7 @@ type Props = {
 
 export default function Controls({ togglePlay, toggleLoop }: Props) {
 	const { isPlaying, isLoop, isShuffle } = useAppSelector(
-		state => state.currPlaylist,
+		state => state.playlist,
 	)
 	const dispatch = useAppDispatch()
 

@@ -6,13 +6,13 @@ import {
 } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { userReducer } from './features/userSlice'
-import { currPlaylistReducer } from './features/playlistSlice'
+import { playlistReducer } from './features/playlistSlice'
 
 export const makeStore = () => {
 	return configureStore({
 		reducer: combineReducers({
 			user: userReducer,
-			currPlaylist: currPlaylistReducer,
+			playlist: playlistReducer,
 		}),
 	})
 }

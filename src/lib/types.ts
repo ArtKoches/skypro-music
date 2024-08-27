@@ -1,4 +1,10 @@
-export type tracksDataTypes = {
+export enum FilterType {
+	author = 'исполнителю',
+	year = 'году выпуска',
+	genre = 'жанру',
+}
+
+export type TrackDataType = {
 	_id: number
 	name: string
 	author: string
@@ -11,16 +17,15 @@ export type tracksDataTypes = {
 	staredUser: number[]
 }
 
-export enum filterTypes {
-	author = 'исполнителю',
-	year = 'году выпуска',
-	genre = 'жанру',
-}
-
 export type UserDataType = {
 	email: string
 	username: string
 	_id: number
+}
+
+export type TokenType = {
+	access: string
+	refresh: string
 }
 
 export type SignInDataType = {

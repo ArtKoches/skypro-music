@@ -1,14 +1,16 @@
 import { userApi } from '@/api/userApi'
-import { UserDataType } from '@/lib/types'
+import { TokenType, UserDataType } from '@/lib/types'
 import { getUserFromLs } from '@/utils/helpers'
 import { createSlice } from '@reduxjs/toolkit'
 
 type UserStateType = {
 	user: UserDataType | null
+	tokens: TokenType | null
 }
 
 const initialState: UserStateType = {
 	user: getUserFromLs(),
+	tokens: null,
 }
 
 const userSlice = createSlice({

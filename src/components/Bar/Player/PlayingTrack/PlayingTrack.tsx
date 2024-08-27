@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { useAppSelector } from '@/store/store'
 
 export default function PlayingTrack() {
-	const { currTrack } = useAppSelector(state => state.currPlaylist)
+	const { currTrack } = useAppSelector(state => state.playlist)
 
 	return (
 		<div className={styles.player__track_play}>

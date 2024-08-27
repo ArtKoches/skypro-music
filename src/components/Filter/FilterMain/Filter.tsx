@@ -3,17 +3,17 @@
 import React, { useState } from 'react'
 import styles from './Filter.module.css'
 import FilterButton from '../FilterButton/FilterButton'
-import { filterTypes } from '@/lib/types'
+import { FilterType } from '@/lib/types'
 import { useAppSelector } from '@/store/store'
 
 const filterTitles: string[] = [
-	filterTypes.author,
-	filterTypes.year,
-	filterTypes.genre,
+	FilterType.author,
+	FilterType.year,
+	FilterType.genre,
 ]
 
 export default function Filter() {
-	const { currPlaylist } = useAppSelector(state => state.currPlaylist)
+	const { currPlaylist } = useAppSelector(state => state.playlist)
 	const [openFilterCategory, setOpenFilterCategory] = useState<string | null>(
 		null,
 	)
@@ -28,13 +28,13 @@ export default function Filter() {
 
 	const getUniqueFilterLists = (option: string): string[] => {
 		switch (option) {
-			case filterTypes.author:
+			case FilterType.author:
 				return Array.from(
 					new Set<string>(currPlaylist.map(track => track.author)),
 				)
-			case filterTypes.year:
+			case FilterType.year:
 				return ['По умолчанию', 'Сначала новые', 'Сначала старые']
-			case filterTypes.genre:
+			case FilterType.genre:
 				return Array.from(
 					new Set<string>(currPlaylist.map(track => track.genre).flat()),
 				)

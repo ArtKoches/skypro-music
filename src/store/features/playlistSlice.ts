@@ -1,17 +1,19 @@
-import { tracksDataTypes } from '@/lib/types'
+import { tracksApi } from '@/api/tracksApi'
+import { TrackDataType } from '@/lib/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-type CurrPlaylistStateType = {
-	currPlaylist: tracksDataTypes[]
-	shufflePlaylist: tracksDataTypes[]
-	currTrack: tracksDataTypes | null
+type PlaylistStateType = {
+	currPlaylist: TrackDataType[]
+	shufflePlaylist: TrackDataType[]
+	currTrack: TrackDataType | null
 	isLoading: boolean
 	isPlaying: boolean
 	isLoop: boolean
 	isShuffle: boolean
+	likedTracks: TrackDataType[]
 }
 
-const initialState: CurrPlaylistStateType = {
+const initialState: PlaylistStateType = {
 	currPlaylist: [],
 	shufflePlaylist: [],
 	currTrack: null,
@@ -19,26 +21,37 @@ const initialState: CurrPlaylistStateType = {
 	isPlaying: false,
 	isLoop: false,
 	isShuffle: false,
+	likedTracks: [],
 }
 
-const currPlaylistSlice = createSlice({
-	name: 'currPlaylist',
+const playlistSlice = createSlice({
+	name: 'playlist',
 	initialState,
 	reducers: {
-		setCurrPlaylist: (state, action: PayloadAction<tracksDataTypes[]>) => {
+		setCurrPlaylist: (state, action: PayloadAction<TrackDataType[]>) => {
 			state.currPlaylist = action.payload
 		},
 
 		setCurrTrack: (
 			state,
 			action: PayloadAction<{
-				currTrack: tracksDataTypes
-				currPlaylist: tracksDataTypes[]
+				currTrack: TrackDataType
+				currPlaylist: TrackDataType[]
 			}>,
 		) => {
 			state.currTrack = action.payload.currTrack
 			state.currPlaylist = action.payload.currPlaylist
 			state.shufflePlaylist = action.payload.currPlaylist
+		},
+
+		setLike: (state, action: PayloadAction<TrackDataType>) => {
+			state.likedTracks.push(action.payload)
+		},
+
+		setDislike: (state, action: PayloadAction<TrackDataType>) => {
+			state.likedTracks = state.likedTracks.filter(
+				track => track._id !== action.payload._id,
+			)
 		},
 
 		setPrevTrack: state => {
@@ -86,16 +99,23 @@ const currPlaylistSlice = createSlice({
 			)
 		},
 	},
+	extraReducers: builder => {
+		builder.addCase(tracksApi.getFavoriteTracks.fulfilled, (state, action) => {
+			state.likedTracks = action.payload
+		})
+	},
 })
 
 export const {
 	setCurrPlaylist,
 	setCurrTrack,
+	setLike,
+	setDislike,
 	setPrevTrack,
 	setNextTrack,
 	setIsLoading,
 	setIsPlaying,
 	setIsLoop,
 	setIsShuffle,
-} = currPlaylistSlice.actions
-export const currPlaylistReducer = currPlaylistSlice.reducer
+} = playlistSlice.actions
+export const playlistReducer = playlistSlice.reducer

@@ -16,7 +16,7 @@ import styles from './Bar.module.css'
 
 export default function Bar() {
 	const { currTrack, isPlaying, isLoop } = useAppSelector(
-		state => state.currPlaylist,
+		state => state.playlist,
 	)
 	const dispatch = useAppDispatch()
 

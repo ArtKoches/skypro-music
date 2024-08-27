@@ -1,7 +1,7 @@
 'use client'
 
 import { tracksApi } from '@/api/tracksApi'
-import { tracksDataTypes } from '@/lib/types'
+import { TrackDataType } from '@/lib/types'
 import { setCurrPlaylist, setIsLoading } from '@/store/features/playlistSlice'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 import { useEffect } from 'react'
@@ -12,13 +12,13 @@ import Sidebar from '../Sidebar/Sidebar'
 import styles from './Main.module.css'
 
 export default function Main() {
-	const { currTrack } = useAppSelector(state => state.currPlaylist)
+	const { currTrack } = useAppSelector(state => state.playlist)
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
 		tracksApi
 			.getTracks()
-			.then((resp: tracksDataTypes[]) => dispatch(setCurrPlaylist(resp)))
+			.then((resp: TrackDataType[]) => dispatch(setCurrPlaylist(resp)))
 			.catch(error => {
 				if (error instanceof Error) throw new Error(error.message)
 			})
