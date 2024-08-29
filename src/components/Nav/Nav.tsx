@@ -38,9 +38,9 @@ export default function Nav() {
 						</li>
 						{tokens && (
 							<li className={styles.menu__item}>
-								<a href='#' className={styles.menu__link}>
+								<Link className={styles.menu__link} href={routes.FAVORITE}>
 									Мой плейлист
-								</a>
+								</Link>
 							</li>
 						)}
 						<li className={styles.menu__item}>

@@ -36,7 +36,7 @@ export default function Track(track: TrackDataType) {
 							></div>
 						) : (
 							<svg className={styles.track__title_svg}>
-								<use xlinkHref='img/icon/sprite.svg#icon-note' />
+								<use xlinkHref='/img/icon/sprite.svg#icon-note' />
 							</svg>
 						)}
 					</div>
@@ -67,7 +67,7 @@ export default function Track(track: TrackDataType) {
 							)}
 						>
 							<use
-								xlinkHref={`img/icon/sprite.svg#${isLiked ? 'icon-like' : 'icon-dislike'}`}
+								xlinkHref={`/img/icon/sprite.svg#${isLiked ? 'icon-like' : 'icon-dislike'}`}
 							/>
 						</svg>
 					</div>

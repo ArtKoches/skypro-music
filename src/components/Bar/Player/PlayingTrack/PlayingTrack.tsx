@@ -13,7 +13,7 @@ export default function PlayingTrack() {
 			<div className={styles.track_play__contain}>
 				<div className={styles.track_play__image}>
 					<svg className={styles.track_play__svg}>
-						<use xlinkHref='img/icon/sprite.svg#icon-note' />
+						<use xlinkHref='/img/icon/sprite.svg#icon-note' />
 					</svg>
 				</div>
 				<div className={styles.track_play__author}>
@@ -41,7 +41,7 @@ export default function PlayingTrack() {
 						)}
 					>
 						<use
-							xlinkHref={`img/icon/sprite.svg#${isLiked ? 'icon-like' : 'icon-dislike'}`}
+							xlinkHref={`/img/icon/sprite.svg#${isLiked ? 'icon-like' : 'icon-dislike'}`}
 						/>
 					</svg>
 				</div>

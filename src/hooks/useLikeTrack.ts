@@ -30,6 +30,7 @@ export function useLikeTrack(track: TrackDataType) {
 			dispatch(storeAction(track))
 		} catch (err: unknown) {
 			const error = err as Error
+			alert(error.message)
 			console.error(error.message)
 		}
 	}

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react'
 import styles from './SidebarPersonal.module.css'
 import { useRouter } from 'next/navigation'
@@ -31,7 +33,7 @@ export default function SidebarPersonal() {
 			</p>
 			<div className={styles.sidebar__icon} onClick={onLogout}>
 				<svg>
-					<use xlinkHref='img/icon/sprite.svg#logout' />
+					<use xlinkHref='/img/icon/sprite.svg#logout' />
 				</svg>
 			</div>
 		</div>

@@ -16,7 +16,7 @@ export default function PlaylistColumnTitle() {
 			</div>
 			<div className={classNames(styles.playlist_title__col, styles.col04)}>
 				<svg className={styles.playlist_title__svg}>
-					<use xlinkHref='img/icon/sprite.svg#icon-watch' />
+					<use xlinkHref='/img/icon/sprite.svg#icon-watch' />
 				</svg>
 			</div>
 		</div>

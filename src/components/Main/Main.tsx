@@ -20,7 +20,9 @@ export default function Main() {
 			.getTracks()
 			.then((resp: TrackDataType[]) => dispatch(setCurrPlaylist(resp)))
 			.catch(error => {
-				if (error instanceof Error) throw new Error(error.message)
+				if (error instanceof Error) {
+					throw new Error(error.message)
+				}
 			})
 			.finally(() => dispatch(setIsLoading(false)))
 	}, [dispatch])

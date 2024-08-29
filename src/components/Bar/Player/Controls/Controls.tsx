@@ -37,7 +37,7 @@ export default function Controls({ togglePlay, toggleLoop }: Props) {
 		<div className={styles.player__controls}>
 			<div className={styles.player__btn_prev} onClick={switchPrevTrack}>
 				<svg className={styles.player__btn_prev_svg}>
-					<use xlinkHref='img/icon/sprite.svg#icon-prev' />
+					<use xlinkHref='/img/icon/sprite.svg#icon-prev' />
 				</svg>
 			</div>
 			<div
@@ -46,13 +46,13 @@ export default function Controls({ togglePlay, toggleLoop }: Props) {
 			>
 				<svg className={styles.player__btn_play_svg}>
 					<use
-						xlinkHref={`img/icon/sprite.svg#${isPlaying ? 'icon-pause' : 'icon-play'}`}
+						xlinkHref={`/img/icon/sprite.svg#${isPlaying ? 'icon-pause' : 'icon-play'}`}
 					/>
 				</svg>
 			</div>
 			<div className={styles.player__btn_next} onClick={switchNextTrack}>
 				<svg className={styles.player__btn_next_svg}>
-					<use xlinkHref='img/icon/sprite.svg#icon-next' />
+					<use xlinkHref='/img/icon/sprite.svg#icon-next' />
 				</svg>
 			</div>
 			<div
@@ -64,7 +64,7 @@ export default function Controls({ togglePlay, toggleLoop }: Props) {
 						[styles.active_btn]: isLoop,
 					})}
 				>
-					<use xlinkHref='img/icon/sprite.svg#icon-repeat' />
+					<use xlinkHref='/img/icon/sprite.svg#icon-repeat' />
 				</svg>
 			</div>
 			<div
@@ -76,7 +76,7 @@ export default function Controls({ togglePlay, toggleLoop }: Props) {
 						[styles.active_btn]: isShuffle,
 					})}
 				>
-					<use xlinkHref='img/icon/sprite.svg#icon-shuffle' />
+					<use xlinkHref='/img/icon/sprite.svg#icon-shuffle' />
 				</svg>
 			</div>
 		</div>

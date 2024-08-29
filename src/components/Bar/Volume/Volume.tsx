@@ -17,7 +17,7 @@ export default function Volume({ value, onChange }: Props) {
 			<div className={styles.volume__content}>
 				<div className={styles.volume__image}>
 					<svg className={styles.volume__svg}>
-						<use xlinkHref='img/icon/sprite.svg#icon-volume' />
+						<use xlinkHref='/img/icon/sprite.svg#icon-volume' />
 					</svg>
 				</div>
 				<div className={classNames(styles.volume__progress, styles._btn)}>
