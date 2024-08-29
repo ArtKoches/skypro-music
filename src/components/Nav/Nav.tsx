@@ -23,20 +23,18 @@ export default function Nav() {
 					height={17}
 				/>
 			</div>
-
 			<div className={styles.nav__burger} onClick={handleOpenMenu}>
 				<span className={styles.burger__line} />
 				<span className={styles.burger__line} />
 				<span className={styles.burger__line} />
 			</div>
-
 			{isOpenNavMenu && (
 				<div className={styles.nav__menu}>
 					<ul className={styles.menu__list}>
 						<li className={styles.menu__item}>
-							<a href='#' className={styles.menu__link}>
+							<Link className={styles.menu__link} href={routes.HOME}>
 								Главное
-							</a>
+							</Link>
 						</li>
 						{tokens && (
 							<li className={styles.menu__item}>

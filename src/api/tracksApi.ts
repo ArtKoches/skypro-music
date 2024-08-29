@@ -7,17 +7,16 @@ export const tracksApi = {
 		try {
 			const resp = await fetch(`${baseUrl}/catalog/track/all/`)
 			const respData = await resp.json()
+
 			if (!resp.ok) {
 				throw new Error(respData.message)
 			}
 
 			return respData.data
-		} catch (error: unknown) {
-			if (error instanceof Error) {
-				throw new Error(error.message)
-			} else {
-				throw new Error('Неизвестная ошибка')
-			}
+		} catch (err: unknown) {
+			const error = err as Error
+			console.error(error.message)
+			throw new Error(error.message)
 		}
 	},
 
@@ -32,16 +31,16 @@ export const tracksApi = {
 					},
 				})
 				const respData = await resp.json()
+
 				if (!resp.ok) {
 					throw new Error(respData.message)
 				}
 
 				return respData.data
-			} catch (error: unknown) {
-				if (error instanceof Error) {
-					console.error(error.message)
-					throw new Error(error.message)
-				}
+			} catch (err: unknown) {
+				const error = err as Error
+				console.error(error.message)
+				throw new Error(error.message)
 			}
 		},
 	),
@@ -55,16 +54,16 @@ export const tracksApi = {
 				},
 			})
 			const respData = await resp.json()
+
 			if (!resp.ok) {
 				throw new Error(respData.message)
 			}
 
 			return respData.data
-		} catch (error: unknown) {
-			if (error instanceof Error) {
-				console.error(error.message)
-				throw new Error(error.message)
-			}
+		} catch (err: unknown) {
+			const error = err as Error
+			console.error(error.message)
+			throw new Error(error.message)
 		}
 	},
 
@@ -77,16 +76,16 @@ export const tracksApi = {
 				},
 			})
 			const respData = await resp.json()
+
 			if (!resp.ok) {
 				throw new Error(respData.message)
 			}
 
 			return respData.data
-		} catch (error: unknown) {
-			if (error instanceof Error) {
-				console.error(error.message)
-				throw new Error(error.message)
-			}
+		} catch (err: unknown) {
+			const error = err as Error
+			console.error(error.message)
+			throw new Error(error.message)
 		}
 	},
 }

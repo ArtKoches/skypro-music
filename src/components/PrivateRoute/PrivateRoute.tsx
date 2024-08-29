@@ -7,13 +7,13 @@ import React, { PropsWithChildren, useEffect } from 'react'
 
 export default function PrivateRoute({ children }: PropsWithChildren) {
 	const router = useRouter()
-	const { user, tokens } = useAppSelector(state => state.user)
+	const { user } = useAppSelector(state => state.user)
 
 	useEffect(() => {
-		if (!user || !tokens) {
+		if (!user) {
 			router.push(routes.LOGIN)
 		}
-	}, [user, tokens])
+	}, [user, router])
 
 	return <>{children}</>
 }

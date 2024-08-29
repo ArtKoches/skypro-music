@@ -28,10 +28,9 @@ export function useLikeTrack(track: TrackDataType) {
 		try {
 			await fetchAction(tokens.access, track._id)
 			dispatch(storeAction(track))
-		} catch (error: unknown) {
-			if (error instanceof Error) {
-				console.error(error.message)
-			}
+		} catch (err: unknown) {
+			const error = err as Error
+			console.error(error.message)
 		}
 	}
 

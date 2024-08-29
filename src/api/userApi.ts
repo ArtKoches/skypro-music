@@ -46,9 +46,12 @@ export const userApi = {
 				headers: { 'content-type': 'application/json' },
 			})
 			const json = await resp.json()
+
 			if (!resp.ok) {
 				apiErrorHandler(resp.status)
+				throw new Error(json.message)
 			}
+
 			return json
 		},
 	),

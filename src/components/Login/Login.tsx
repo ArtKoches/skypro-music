@@ -43,7 +43,7 @@ export default function Login() {
 
 		try {
 			await dispatch(userApi.getUser(loginData)).unwrap()
-			dispatch(userApi.getToken(loginData))
+			await dispatch(userApi.getToken(loginData))
 			router.push(routes.HOME)
 		} catch (err: unknown) {
 			const error = err as Error

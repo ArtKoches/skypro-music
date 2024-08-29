@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import Bar from '../Bar/BarMain/Bar'
 import Nav from '../Nav/Nav'
 import Playlist from '../Playlist/PlaylistMain/Playlist'
-import Sidebar from '../Sidebar/Sidebar'
+import Sidebar from '../Sidebar/SideBarMain/Sidebar'
 import styles from './Main.module.css'
 
 export default function Main() {
