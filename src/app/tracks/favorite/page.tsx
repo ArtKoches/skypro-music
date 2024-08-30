@@ -7,19 +7,22 @@ import Search from '@/components/Search/Search'
 import styles from '../../../components/Playlist/PlaylistMain/Playlist.module.css'
 import React from 'react'
 import { useAppSelector } from '@/store/store'
+import PrivateRoute from '@/components/PrivateRoute/PrivateRoute'
 
 export default function Favorite() {
-	const { likedTracks } = useAppSelector(state => state.playlist)
+	const { favoritePlaylist } = useAppSelector(state => state.playlist)
 
 	return (
-		<div className={styles.main__centerblock}>
-			<Search />
-			<h2 className={styles.centerblock__h2}>Избранное</h2>
-			<Filter />
-			<div className={styles.centerblock__content}>
-				<PlaylistColumnTitle />
-				<PlaylistItem playlist={likedTracks} />
+		<PrivateRoute>
+			<div className={styles.main__centerblock}>
+				<Search />
+				<h2 className={styles.centerblock__h2}>Избранное</h2>
+				<Filter playlist={favoritePlaylist} />
+				<div className={styles.centerblock__content}>
+					<PlaylistColumnTitle />
+					<PlaylistItem playlist={favoritePlaylist} />
+				</div>
 			</div>
-		</div>
+		</PrivateRoute>
 	)
 }

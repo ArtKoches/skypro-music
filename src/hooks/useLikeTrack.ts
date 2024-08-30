@@ -5,17 +5,16 @@ import { useAppDispatch, useAppSelector } from '@/store/store'
 
 export function useLikeTrack(track: TrackDataType) {
 	const dispatch = useAppDispatch()
-	const tokens = useAppSelector(state => state.user.tokens)
-	const user = useAppSelector(state => state.user.user)
-	const likedTracks = useAppSelector(state => state.playlist.likedTracks)
+	const { user, tokens } = useAppSelector(state => state.user)
+	const { favoritePlaylist } = useAppSelector(state => state.playlist)
 
-	const isLiked = !!likedTracks.find(el => el._id === track._id)
+	const isLiked = !!favoritePlaylist.find(el => el._id === track._id)
 
 	const handleLike = async (event: React.MouseEvent<HTMLDivElement>) => {
 		event.stopPropagation()
 
-		if (!tokens || !user) {
-			alert('Нет авторизации')
+		if (!user || !tokens) {
+			alert('Ставить лайки могут только авторизованные пользователи')
 			return
 		}
 

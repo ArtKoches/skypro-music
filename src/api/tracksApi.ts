@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 const baseUrl = 'https://webdev-music-003b5b991590.herokuapp.com'
 
 export const tracksApi = {
-	getTracks: async () => {
+	getTracks: createAsyncThunk('tracks/getTracks', async () => {
 		try {
 			const resp = await fetch(`${baseUrl}/catalog/track/all/`)
 			const respData = await resp.json()
@@ -18,7 +18,7 @@ export const tracksApi = {
 			console.error(error.message)
 			throw new Error(error.message)
 		}
-	},
+	}),
 
 	getFavoriteTracks: createAsyncThunk(
 		'tracks/getFavorite',

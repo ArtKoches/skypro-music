@@ -7,13 +7,14 @@ import React, { PropsWithChildren, useEffect } from 'react'
 
 export default function PrivateRoute({ children }: PropsWithChildren) {
 	const router = useRouter()
-	const { user } = useAppSelector(state => state.user)
+	const { user, tokens } = useAppSelector(state => state.user)
 
 	useEffect(() => {
-		if (!user) {
-			router.push(routes.LOGIN)
+		if (!user || !tokens) {
+			alert('Страница с избранными треками доступна только после авторизации')
+			router.push(routes.HOME)
 		}
-	}, [user, router])
+	}, [user, tokens, router])
 
 	return <>{children}</>
 }

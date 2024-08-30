@@ -5,33 +5,29 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 type PlaylistStateType = {
 	currPlaylist: TrackDataType[]
 	shufflePlaylist: TrackDataType[]
+	favoritePlaylist: TrackDataType[]
 	currTrack: TrackDataType | null
 	isLoading: boolean
 	isPlaying: boolean
 	isLoop: boolean
 	isShuffle: boolean
-	likedTracks: TrackDataType[]
 }
 
 const initialState: PlaylistStateType = {
 	currPlaylist: [],
 	shufflePlaylist: [],
+	favoritePlaylist: [],
 	currTrack: null,
 	isLoading: true,
 	isPlaying: false,
 	isLoop: false,
 	isShuffle: false,
-	likedTracks: [],
 }
 
 const playlistSlice = createSlice({
 	name: 'playlist',
 	initialState,
 	reducers: {
-		setCurrPlaylist: (state, action: PayloadAction<TrackDataType[]>) => {
-			state.currPlaylist = action.payload
-		},
-
 		setCurrTrack: (
 			state,
 			action: PayloadAction<{
@@ -45,11 +41,11 @@ const playlistSlice = createSlice({
 		},
 
 		setLike: (state, action: PayloadAction<TrackDataType>) => {
-			state.likedTracks.push(action.payload)
+			state.favoritePlaylist.push(action.payload)
 		},
 
 		setDislike: (state, action: PayloadAction<TrackDataType>) => {
-			state.likedTracks = state.likedTracks.filter(
+			state.favoritePlaylist = state.favoritePlaylist.filter(
 				track => track._id !== action.payload._id,
 			)
 		},
@@ -80,10 +76,6 @@ const playlistSlice = createSlice({
 			state.currTrack = playlist[currIndex + 1]
 		},
 
-		setIsLoading: (state, action: PayloadAction<boolean>) => {
-			state.isLoading = action.payload
-		},
-
 		setIsPlaying: (state, action: PayloadAction<boolean>) => {
 			state.isPlaying = action.payload
 		},
@@ -100,20 +92,24 @@ const playlistSlice = createSlice({
 		},
 	},
 	extraReducers: builder => {
-		builder.addCase(tracksApi.getFavoriteTracks.fulfilled, (state, action) => {
-			state.likedTracks = action.payload
-		})
+		builder
+			.addCase(tracksApi.getTracks.fulfilled, (state, action) => {
+				state.currPlaylist = action.payload
+				state.isLoading = false
+			})
+			.addCase(tracksApi.getFavoriteTracks.fulfilled, (state, action) => {
+				state.favoritePlaylist = action.payload
+				state.isLoading = false
+			})
 	},
 })
 
 export const {
-	setCurrPlaylist,
 	setCurrTrack,
 	setLike,
 	setDislike,
 	setPrevTrack,
 	setNextTrack,
-	setIsLoading,
 	setIsPlaying,
 	setIsLoop,
 	setIsShuffle,

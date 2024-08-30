@@ -12,7 +12,7 @@ export default function Playlist() {
 		<div className={styles.main__centerblock}>
 			<Search />
 			<h2 className={styles.centerblock__h2}>Треки</h2>
-			<Filter />
+			<Filter playlist={currPlaylist} />
 			<div className={styles.centerblock__content}>
 				<PlaylistTitle />
 				<PlaylistItem playlist={currPlaylist} />

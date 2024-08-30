@@ -3,8 +3,7 @@
 import React, { useState } from 'react'
 import styles from './Filter.module.css'
 import FilterButton from '../FilterButton/FilterButton'
-import { FilterType } from '@/lib/types'
-import { useAppSelector } from '@/store/store'
+import { FilterType, TrackDataType } from '@/lib/types'
 
 const filterTitles: string[] = [
 	FilterType.author,
@@ -12,8 +11,11 @@ const filterTitles: string[] = [
 	FilterType.genre,
 ]
 
-export default function Filter() {
-	const { currPlaylist } = useAppSelector(state => state.playlist)
+type Props = {
+	playlist: TrackDataType[]
+}
+
+export default function Filter({ playlist }: Props) {
 	const [openFilterCategory, setOpenFilterCategory] = useState<string | null>(
 		null,
 	)
@@ -29,14 +31,12 @@ export default function Filter() {
 	const getUniqueFilterLists = (option: string): string[] => {
 		switch (option) {
 			case FilterType.author:
-				return Array.from(
-					new Set<string>(currPlaylist.map(track => track.author)),
-				)
+				return Array.from(new Set<string>(playlist.map(track => track.author)))
 			case FilterType.year:
 				return ['По умолчанию', 'Сначала новые', 'Сначала старые']
 			case FilterType.genre:
 				return Array.from(
-					new Set<string>(currPlaylist.map(track => track.genre).flat()),
+					new Set<string>(playlist.map(track => track.genre).flat()),
 				)
 			default:
 				return []

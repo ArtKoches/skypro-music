@@ -22,6 +22,7 @@ export default function SidebarPersonal() {
 
 	//FIXME:
 	const [isClient, setIsClient] = useState(false)
+
 	useEffect(() => {
 		setIsClient(true)
 	}, [])
@@ -31,11 +32,14 @@ export default function SidebarPersonal() {
 			<p className={styles.sidebar__personal_name}>
 				{isClient && user?.username}
 			</p>
-			<div className={styles.sidebar__icon} onClick={onLogout}>
-				<svg>
-					<use xlinkHref='/img/icon/sprite.svg#logout' />
-				</svg>
-			</div>
+
+			{isClient && user && (
+				<div className={styles.sidebar__icon} onClick={onLogout}>
+					<svg>
+						<use xlinkHref='/img/icon/sprite.svg#logout' />
+					</svg>
+				</div>
+			)}
 		</div>
 	)
 }
