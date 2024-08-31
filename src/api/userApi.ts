@@ -55,4 +55,20 @@ export const userApi = {
 			return json
 		},
 	),
+
+	refreshToken: async (refresh: string) => {
+		const resp = await fetch(`${baseHost}token/refresh/`, {
+			method: 'POST',
+			body: JSON.stringify({ refresh }),
+			headers: { 'content-type': 'application/json' },
+		})
+		const json = await resp.json()
+
+		if (!resp.ok) {
+			apiErrorHandler(resp.status)
+			throw new Error(json.message)
+		}
+
+		return json
+	},
 }

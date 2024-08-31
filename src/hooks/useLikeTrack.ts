@@ -25,7 +25,11 @@ export function useLikeTrack(track: TrackDataType) {
 		const storeAction = isLiked ? setDislike : setLike
 
 		try {
-			await fetchAction(tokens.access, track._id)
+			await fetchAction({
+				trackId: track._id,
+				access: tokens.access,
+				refresh: tokens.refresh,
+			})
 			dispatch(storeAction(track))
 		} catch (err: unknown) {
 			const error = err as Error

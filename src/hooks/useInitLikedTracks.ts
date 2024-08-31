@@ -8,7 +8,12 @@ export function useInitLikedTracks() {
 
 	useEffect(() => {
 		if (tokens?.access) {
-			dispatch(tracksApi.getFavoriteTracks(tokens.access))
+			dispatch(
+				tracksApi.getFavoriteTracks({
+					access: tokens.access,
+					refresh: tokens.refresh,
+				}),
+			)
 		}
 	}, [tokens, dispatch])
 }

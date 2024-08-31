@@ -1,3 +1,4 @@
+import { fetchWithAuth } from '@/utils/helpers'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const baseUrl = 'https://webdev-music-003b5b991590.herokuapp.com'
@@ -22,14 +23,18 @@ export const tracksApi = {
 
 	getFavoriteTracks: createAsyncThunk(
 		'tracks/getFavorite',
-		async (token: string) => {
+		async ({ access, refresh }: { access: string; refresh: string }) => {
 			try {
-				const resp = await fetch(`${baseUrl}/catalog/track/favorite/all/`, {
-					method: 'GET',
-					headers: {
-						Authorization: `Bearer ${token}`,
+				const resp = await fetchWithAuth(
+					`${baseUrl}/catalog/track/favorite/all/`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${access}`,
+						},
 					},
-				})
+					refresh,
+				)
 				const respData = await resp.json()
 
 				if (!resp.ok) {
@@ -45,14 +50,26 @@ export const tracksApi = {
 		},
 	),
 
-	addFavoriteTrack: async (token: string, id: number) => {
+	addFavoriteTrack: async ({
+		trackId,
+		access,
+		refresh,
+	}: {
+		trackId: number
+		access: string
+		refresh: string
+	}) => {
 		try {
-			const resp = await fetch(`${baseUrl}/catalog/track/${id}/favorite/`, {
-				method: 'POST',
-				headers: {
-					Authorization: `Bearer ${token}`,
+			const resp = await fetchWithAuth(
+				`${baseUrl}/catalog/track/${trackId}/favorite/`,
+				{
+					method: 'POST',
+					headers: {
+						Authorization: `Bearer ${access}`,
+					},
 				},
-			})
+				refresh,
+			)
 			const respData = await resp.json()
 
 			if (!resp.ok) {
@@ -67,14 +84,26 @@ export const tracksApi = {
 		}
 	},
 
-	deleteFavoriteTrack: async (token: string, id: number) => {
+	deleteFavoriteTrack: async ({
+		trackId,
+		access,
+		refresh,
+	}: {
+		trackId: number
+		access: string
+		refresh: string
+	}) => {
 		try {
-			const resp = await fetch(`${baseUrl}/catalog/track/${id}/favorite/`, {
-				method: 'DELETE',
-				headers: {
-					Authorization: `Bearer ${token}`,
+			const resp = await fetchWithAuth(
+				`${baseUrl}/catalog/track/${trackId}/favorite/`,
+				{
+					method: 'DELETE',
+					headers: {
+						Authorization: `Bearer ${access}`,
+					},
 				},
-			})
+				refresh,
+			)
 			const respData = await resp.json()
 
 			if (!resp.ok) {

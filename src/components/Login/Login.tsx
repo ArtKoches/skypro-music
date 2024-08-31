@@ -42,7 +42,7 @@ export default function Login() {
 		}
 
 		try {
-			await dispatch(userApi.getUser(loginData))
+			await dispatch(userApi.getUser(loginData)).unwrap()
 			await dispatch(userApi.getToken(loginData))
 			router.push(routes.HOME)
 		} catch (err: unknown) {
