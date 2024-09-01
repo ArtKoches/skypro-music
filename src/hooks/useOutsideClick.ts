@@ -12,9 +12,9 @@ export const useOutsideClick = (initValue: boolean) => {
 	}
 
 	useEffect(() => {
-		document.addEventListener('click', handleClickOutside, true)
+		document.addEventListener('click', handleClickOutside)
 		return () => {
-			document.removeEventListener('click', handleClickOutside, true)
+			document.removeEventListener('click', handleClickOutside)
 		}
 	}, [ref])
 
