@@ -1,8 +1,9 @@
-'use client' // Error components must be Client Components
+'use client'
 
+import Error from '@/components/Error/Error'
 import { useEffect } from 'react'
 
-export default function Error({
+export default function ErrorPage({
 	error,
 	reset,
 }: {
@@ -10,21 +11,12 @@ export default function Error({
 	reset: () => void
 }) {
 	useEffect(() => {
-		// Log the error to an error reporting service
 		console.error(error)
 	}, [error])
 
 	return (
-		<div>
-			<h2 style={{ color: 'black' }}>Что-то пошло не так!</h2>
-			<button
-				onClick={
-					// Attempt to recover by trying to re-render the segment
-					() => reset()
-				}
-			>
-				Перезагрузить страницу
-			</button>
-		</div>
+		<>
+			<Error onClick={() => reset()} />
+		</>
 	)
 }

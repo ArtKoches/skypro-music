@@ -1,15 +1,15 @@
 'use client'
 
-import React, { useState } from 'react'
-import styles from './Login.module.css'
+import { userApi } from '@/api/userApi'
+import { routes } from '@/lib/routes'
+import { useAppDispatch } from '@/store/store'
 import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
-import { routes } from '@/lib/routes'
-import { useAppDispatch } from '@/store/store'
-import { userApi } from '@/api/userApi'
 import { useRouter } from 'next/navigation'
-import ErrorMsg from '../ErrorMsg/ErrorMsg'
+import React, { useState } from 'react'
+import ErrorMsg from '../Error/ErrorMsg/ErrorMsg'
+import styles from './Login.module.css'
 
 export default function Login() {
 	const dispatch = useAppDispatch()

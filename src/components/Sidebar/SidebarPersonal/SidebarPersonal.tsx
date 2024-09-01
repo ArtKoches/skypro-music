@@ -9,20 +9,18 @@ import { logout } from '@/store/features/userSlice'
 import { useInitLikedTracks } from '@/hooks/useInitLikedTracks'
 
 export default function SidebarPersonal() {
+	useInitLikedTracks()
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const { user } = useAppSelector(state => state.user)
 
-	useInitLikedTracks()
-
 	const onLogout = () => {
 		dispatch(logout())
-		router.push(routes.LOGIN)
+		router.push(routes.HOME)
 	}
 
-	//FIXME:
+	//Решение проблемы с гидратацией
 	const [isClient, setIsClient] = useState(false)
-
 	useEffect(() => {
 		setIsClient(true)
 	}, [])

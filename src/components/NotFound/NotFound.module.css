@@ -13,7 +13,7 @@
 	background-color: #181818;
 }
 
-.errorBlock {
+.notFound {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -26,15 +26,15 @@
 	opacity: 1;
 }
 
-.errorBlock__title {
+.notFound__title {
 	font-size: 160px;
-	font-weight: 400;
+	font-weight: 600;
 	line-height: 168px;
 }
 
-.errorBlock__subtitle {
+.notFound__subtitle {
 	font-size: 32px;
-	font-weight: 400;
+	font-weight: 500;
 	line-height: 40px;
 	position: relative;
 
@@ -45,16 +45,17 @@
 	}
 }
 
-.errorBlock__description {
-	max-width: 316px;
+.notFound__description {
+	max-width: 320px;
 	font-size: 18px;
+	font-weight: 500;
 	line-height: 24px;
 	text-align: center;
 	color: #4e4e4e;
 	margin-top: 19px;
 }
 
-.errorBlock__BtnReturn {
+.notFound__returnBtn {
 	width: 278px;
 	height: 52px;
 	background-color: #580ea2;
@@ -81,11 +82,11 @@
 	}
 }
 
-.errorBlock__BtnReturn a {
+.notFound__returnBtn a {
 	width: 100%;
 	height: 100%;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 500;
 	font-size: 18px;
 	line-height: 24px;
 	letter-spacing: -0.05px;

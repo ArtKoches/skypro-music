@@ -11,7 +11,6 @@ export default function PrivateRoute({ children }: PropsWithChildren) {
 
 	useEffect(() => {
 		if (!user || !tokens) {
-			alert('Страница с избранными треками доступна только после авторизации')
 			router.push(routes.HOME)
 		}
 	}, [user, tokens, router])
