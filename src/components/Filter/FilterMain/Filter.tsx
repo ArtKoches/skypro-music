@@ -1,6 +1,4 @@
-'use client'
-
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './Filter.module.css'
 import FilterButton from '../FilterButton/FilterButton'
 import { FilterType, TrackDataType } from '@/lib/types'
@@ -16,18 +14,6 @@ type Props = {
 }
 
 export default function Filter({ playlist }: Props) {
-	const [openFilterCategory, setOpenFilterCategory] = useState<string | null>(
-		null,
-	)
-
-	const handleOpenFilter = (title: string) => {
-		if (openFilterCategory === title) {
-			setOpenFilterCategory(null)
-		} else {
-			setOpenFilterCategory(title)
-		}
-	}
-
 	const getUniqueFilterLists = (option: string): string[] => {
 		switch (option) {
 			case FilterType.author:
@@ -53,8 +39,6 @@ export default function Filter({ playlist }: Props) {
 					<FilterButton
 						key={key}
 						title={title}
-						openFilterCategory={openFilterCategory === title}
-						handleOpenFilter={handleOpenFilter}
 						getFilterLists={getFilterLists}
 					/>
 				)
