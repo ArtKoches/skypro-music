@@ -6,7 +6,9 @@ const baseUrl = 'https://webdev-music-003b5b991590.herokuapp.com'
 export const tracksApi = {
 	getTracks: createAsyncThunk('tracks/getTracks', async () => {
 		try {
-			const resp = await fetch(`${baseUrl}/catalog/track/all/`)
+			const resp = await fetch(`${baseUrl}/catalog/track/all/`, {
+				method: 'GET',
+			})
 			const respData = await resp.json()
 
 			if (!resp.ok) {
@@ -14,7 +16,7 @@ export const tracksApi = {
 			}
 
 			return respData.data
-		} catch (err: unknown) {
+		} catch (err) {
 			const error = err as Error
 			console.error(error.message)
 			throw new Error(error.message)
@@ -42,7 +44,7 @@ export const tracksApi = {
 				}
 
 				return respData.data
-			} catch (err: unknown) {
+			} catch (err) {
 				const error = err as Error
 				console.error(error.message)
 				throw new Error(error.message)
@@ -77,7 +79,7 @@ export const tracksApi = {
 			}
 
 			return respData.data
-		} catch (err: unknown) {
+		} catch (err) {
 			const error = err as Error
 			console.error(error.message)
 			throw new Error(error.message)
@@ -111,10 +113,32 @@ export const tracksApi = {
 			}
 
 			return respData.data
-		} catch (err: unknown) {
+		} catch (err) {
 			const error = err as Error
 			console.error(error.message)
 			throw new Error(error.message)
 		}
 	},
+
+	getSelections: createAsyncThunk(
+		'tracks/getSelections',
+		async (id: string) => {
+			try {
+				const resp = await fetch(`${baseUrl}/catalog/selection/${id}/`, {
+					method: 'GET',
+				})
+				const respData = await resp.json()
+
+				if (!resp.ok) {
+					throw new Error(respData.message)
+				}
+
+				return respData.data
+			} catch (err) {
+				const error = err as Error
+				console.error(error.message)
+				throw new Error(error.message)
+			}
+		},
+	),
 }

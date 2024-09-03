@@ -45,7 +45,7 @@ export default function Login() {
 			await dispatch(userApi.getUser(loginData)).unwrap()
 			await dispatch(userApi.getToken(loginData))
 			router.push(routes.HOME)
-		} catch (err: unknown) {
+		} catch (err) {
 			const error = err as Error
 			setError(error.message)
 			console.error(error.message)

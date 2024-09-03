@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import styles from './FilterButton.module.css'
 import classNames from 'classnames'

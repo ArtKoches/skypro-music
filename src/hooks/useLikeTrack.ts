@@ -31,7 +31,7 @@ export function useLikeTrack(track: TrackDataType) {
 				refresh: tokens.refresh,
 			})
 			dispatch(storeAction(track))
-		} catch (err: unknown) {
+		} catch (err) {
 			const error = err as Error
 			console.error(error.message)
 		}

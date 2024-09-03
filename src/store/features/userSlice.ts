@@ -23,6 +23,7 @@ const userSlice = createSlice({
 			localStorage.removeItem('tokens')
 		},
 	},
+
 	extraReducers: builder => {
 		builder
 			.addCase(userApi.getUser.fulfilled, (state, action) => {

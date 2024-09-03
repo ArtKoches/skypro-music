@@ -26,7 +26,6 @@ export const apiErrorHandler = (error: number) => {
 			throw new Error('Данные в неверном формате.')
 		case 500:
 			throw new Error('Сервер сломался')
-
 		default:
 			throw new Error('Неизвестная ошибка')
 	}
@@ -36,7 +35,9 @@ export const getUserFromLs = () => {
 	try {
 		const user = localStorage.getItem('user')
 		return user && JSON.parse(user)
-	} catch {
+	} catch (err) {
+		const error = err as Error
+		console.error(error.message)
 		return null
 	}
 }
@@ -45,7 +46,9 @@ export const getTokensFromLs = () => {
 	try {
 		const tokens = localStorage.getItem('tokens')
 		return tokens && JSON.parse(tokens)
-	} catch {
+	} catch (err) {
+		const error = err as Error
+		console.error(error.message)
 		return null
 	}
 }
@@ -55,25 +58,20 @@ export const fetchWithAuth = async (
 	options: RequestInit,
 	refresh: string,
 ) => {
-	// Выполнение первоначального запроса
-	let res = await fetch(url, options)
+	let resp = await fetch(url, options)
 
-	// Проверка на истечение Access токена (401 Unauthorized)
-	if (res.status === 401) {
-		const newAccessToken = await userApi.refreshToken(refresh) // Получение нового Access токена
-
-		// Повторный запрос с новым токеном
+	if (resp.status === 401) {
+		const newAccessToken = await userApi.refreshToken(refresh)
 		options.headers = {
 			...options.headers,
 			Authorization: `Bearer ${newAccessToken}`,
 		}
-		res = await fetch(url, options) // Повторный запрос с обновленными заголовками
+		resp = await fetch(url, options)
 	}
 
-	// Проверка успешности запроса
-	if (!res.ok) {
-		throw new Error(res.statusText) // Выброс ошибки при неудачном запросе
+	if (!resp.ok) {
+		throw new Error(resp.statusText)
 	}
 
-	return res // Возврат ответа
+	return resp
 }

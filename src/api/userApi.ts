@@ -13,10 +13,12 @@ export const userApi = {
 				body: JSON.stringify({ email, password }),
 				headers: { 'content-type': 'application/json' },
 			})
-			const json = await resp.json()
+
 			if (!resp.ok) {
 				apiErrorHandler(resp.status)
 			}
+
+			const json = await resp.json()
 			return json
 		},
 	),
@@ -29,10 +31,12 @@ export const userApi = {
 				body: JSON.stringify({ email, password, username }),
 				headers: { 'content-type': 'application/json' },
 			})
-			const json = await resp.json()
+
 			if (!resp.ok) {
 				apiErrorHandler(resp.status)
 			}
+
+			const json = await resp.json()
 			return json
 		},
 	),
@@ -45,13 +49,12 @@ export const userApi = {
 				body: JSON.stringify({ email, password }),
 				headers: { 'content-type': 'application/json' },
 			})
-			const json = await resp.json()
 
 			if (!resp.ok) {
 				apiErrorHandler(resp.status)
-				throw new Error(json.message)
 			}
 
+			const json = await resp.json()
 			return json
 		},
 	),
@@ -62,13 +65,12 @@ export const userApi = {
 			body: JSON.stringify({ refresh }),
 			headers: { 'content-type': 'application/json' },
 		})
-		const json = await resp.json()
 
 		if (!resp.ok) {
 			apiErrorHandler(resp.status)
-			throw new Error(json.message)
 		}
 
-		return json
+		const json = await resp.json()
+		return json.access
 	},
 }

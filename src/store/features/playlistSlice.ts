@@ -6,6 +6,8 @@ type PlaylistStateType = {
 	currPlaylist: TrackDataType[]
 	shufflePlaylist: TrackDataType[]
 	favoritePlaylist: TrackDataType[]
+	selectionPlaylist: TrackDataType[]
+	selectionName: string
 	currTrack: TrackDataType | null
 	isLoading: boolean
 	isPlaying: boolean
@@ -17,6 +19,8 @@ const initialState: PlaylistStateType = {
 	currPlaylist: [],
 	shufflePlaylist: [],
 	favoritePlaylist: [],
+	selectionPlaylist: [],
+	selectionName: '',
 	currTrack: null,
 	isLoading: true,
 	isPlaying: false,
@@ -39,17 +43,14 @@ const playlistSlice = createSlice({
 			state.currPlaylist = action.payload.currPlaylist
 			state.shufflePlaylist = action.payload.currPlaylist
 		},
-
 		setLike: (state, action: PayloadAction<TrackDataType>) => {
 			state.favoritePlaylist.push(action.payload)
 		},
-
 		setDislike: (state, action: PayloadAction<TrackDataType>) => {
 			state.favoritePlaylist = state.favoritePlaylist.filter(
 				track => track._id !== action.payload._id,
 			)
 		},
-
 		setPrevTrack: state => {
 			const playlist = state.isShuffle
 				? state.shufflePlaylist
@@ -62,7 +63,6 @@ const playlistSlice = createSlice({
 			}
 			state.currTrack = playlist[currIndex - 1]
 		},
-
 		setNextTrack: state => {
 			const playlist = state.isShuffle
 				? state.shufflePlaylist
@@ -75,15 +75,12 @@ const playlistSlice = createSlice({
 			}
 			state.currTrack = playlist[currIndex + 1]
 		},
-
 		setIsPlaying: (state, action: PayloadAction<boolean>) => {
 			state.isPlaying = action.payload
 		},
-
 		setIsLoop: (state, action: PayloadAction<boolean>) => {
 			state.isLoop = action.payload
 		},
-
 		setIsShuffle: (state, action: PayloadAction<boolean>) => {
 			state.isShuffle = action.payload
 			state.shufflePlaylist = state.shufflePlaylist.sort(
@@ -91,6 +88,7 @@ const playlistSlice = createSlice({
 			)
 		},
 	},
+
 	extraReducers: builder => {
 		builder
 			.addCase(tracksApi.getTracks.fulfilled, (state, action) => {
@@ -99,6 +97,14 @@ const playlistSlice = createSlice({
 			})
 			.addCase(tracksApi.getFavoriteTracks.fulfilled, (state, action) => {
 				state.favoritePlaylist = action.payload
+				state.isLoading = false
+			})
+			.addCase(tracksApi.getSelections.fulfilled, (state, action) => {
+				const filterSelection = state.currPlaylist.filter(track => {
+					return action.payload.items.includes(track._id)
+				})
+				state.selectionPlaylist = filterSelection
+				state.selectionName = action.payload.name
 				state.isLoading = false
 			})
 	},

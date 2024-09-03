@@ -51,7 +51,7 @@ export default function Register() {
 		try {
 			await dispatch(userApi.regUser(regData)).unwrap()
 			router.push(routes.LOGIN)
-		} catch (err: unknown) {
+		} catch (err) {
 			const error = err as Error
 			setError(error.message)
 			console.error(error.message)
