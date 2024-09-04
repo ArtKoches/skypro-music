@@ -7,7 +7,7 @@ type PlaylistStateType = {
 	shufflePlaylist: TrackDataType[]
 	favoritePlaylist: TrackDataType[]
 	selectionPlaylist: TrackDataType[]
-	selectionName: string
+	selectionData: { name: string; items: number[] }
 	currTrack: TrackDataType | null
 	isLoading: boolean
 	isPlaying: boolean
@@ -20,7 +20,7 @@ const initialState: PlaylistStateType = {
 	shufflePlaylist: [],
 	favoritePlaylist: [],
 	selectionPlaylist: [],
-	selectionName: '',
+	selectionData: { name: '', items: [] },
 	currTrack: null,
 	isLoading: true,
 	isPlaying: false,
@@ -39,17 +39,23 @@ const playlistSlice = createSlice({
 				currPlaylist: TrackDataType[]
 			}>,
 		) => {
+			const sortPlaylist = [...action.payload.currPlaylist].sort(
+				() => 0.5 - Math.random(),
+			)
+
 			state.currTrack = action.payload.currTrack
 			state.currPlaylist = action.payload.currPlaylist
-			state.shufflePlaylist = action.payload.currPlaylist
+			state.shufflePlaylist = sortPlaylist
 		},
 		setLike: (state, action: PayloadAction<TrackDataType>) => {
 			state.favoritePlaylist.push(action.payload)
 		},
 		setDislike: (state, action: PayloadAction<TrackDataType>) => {
-			state.favoritePlaylist = state.favoritePlaylist.filter(
+			const filterNoFavorite = state.favoritePlaylist.filter(
 				track => track._id !== action.payload._id,
 			)
+
+			state.favoritePlaylist = filterNoFavorite
 		},
 		setPrevTrack: state => {
 			const playlist = state.isShuffle
@@ -58,9 +64,11 @@ const playlistSlice = createSlice({
 			const currIndex = playlist.findIndex(
 				track => track._id === state.currTrack?._id,
 			)
+
 			if (!currIndex) {
 				return
 			}
+
 			state.currTrack = playlist[currIndex - 1]
 		},
 		setNextTrack: state => {
@@ -70,9 +78,11 @@ const playlistSlice = createSlice({
 			const currIndex = playlist.findIndex(
 				track => track._id === state.currTrack?._id,
 			)
+
 			if (currIndex === playlist.length - 1) {
 				return
 			}
+
 			state.currTrack = playlist[currIndex + 1]
 		},
 		setIsPlaying: (state, action: PayloadAction<boolean>) => {
@@ -83,9 +93,6 @@ const playlistSlice = createSlice({
 		},
 		setIsShuffle: (state, action: PayloadAction<boolean>) => {
 			state.isShuffle = action.payload
-			state.shufflePlaylist = state.shufflePlaylist.sort(
-				() => Math.random() - 0.5,
-			)
 		},
 	},
 
@@ -101,10 +108,11 @@ const playlistSlice = createSlice({
 			})
 			.addCase(tracksApi.getSelections.fulfilled, (state, action) => {
 				const filterSelection = state.currPlaylist.filter(track => {
-					return action.payload.items.includes(track._id)
+					return state.selectionData?.items.includes(track._id)
 				})
+
 				state.selectionPlaylist = filterSelection
-				state.selectionName = action.payload.name
+				state.selectionData = action.payload
 				state.isLoading = false
 			})
 	},

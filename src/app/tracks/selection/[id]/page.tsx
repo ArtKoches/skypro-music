@@ -9,7 +9,7 @@ import React, { useEffect } from 'react'
 export default function Selection() {
 	const dispatch = useAppDispatch()
 	const { id } = useParams<{ id: string }>()
-	const { selectionPlaylist, selectionName } = useAppSelector(
+	const { selectionPlaylist, selectionData } = useAppSelector(
 		state => state.playlist,
 	)
 
@@ -25,7 +25,7 @@ export default function Selection() {
 
 	return (
 		<>
-			<Playlist playlist={selectionPlaylist} title={selectionName} />
+			<Playlist playlist={selectionPlaylist} title={selectionData?.name} />
 		</>
 	)
 }
