@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Фильтр рендер кнопок категории фильтров 1`] = `
+<div
+  className="filterWrapper"
+>
+  <div
+    className="filter__button"
+    onClick={[Function]}
+  >
+    исполнителю
+  </div>
+</div>
+`;
+
+exports[`Фильтр рендер кнопок категории фильтров 2`] = `
+<div
+  className="filterWrapper"
+>
+  <div
+    className="filter__button"
+    onClick={[Function]}
+  >
+    году выпуска
+  </div>
+</div>
+`;
+
+exports[`Фильтр рендер кнопок категории фильтров 3`] = `
+<div
+  className="filterWrapper"
+>
+  <div
+    className="filter__button"
+    onClick={[Function]}
+  >
+    жанру
+  </div>
+</div>
+`;

@@ -28,6 +28,10 @@ export default function Login() {
 	}
 
 	const signIn = async () => {
+		if (!loginData.email.trim() && !loginData.password.trim()) {
+			setError('Заполните все поля')
+			return
+		}
 		if (!loginData.email.trim()) {
 			setError('Введите почту')
 			return
