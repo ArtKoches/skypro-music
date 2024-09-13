@@ -13,6 +13,12 @@ type PlaylistStateType = {
 	isPlaying: boolean
 	isLoop: boolean
 	isShuffle: boolean
+	filterOptions: {
+		searchValue: string
+		singer: string[]
+		orderData: string
+		genre: string[]
+	}
 }
 
 const initialState: PlaylistStateType = {
@@ -26,6 +32,12 @@ const initialState: PlaylistStateType = {
 	isPlaying: false,
 	isLoop: false,
 	isShuffle: false,
+	filterOptions: {
+		searchValue: '',
+		singer: [],
+		orderData: 'По умолчанию',
+		genre: [],
+	},
 }
 
 const playlistSlice = createSlice({
@@ -94,6 +106,12 @@ const playlistSlice = createSlice({
 		setIsShuffle: (state, action: PayloadAction<boolean>) => {
 			state.isShuffle = action.payload
 		},
+		setSearchValue: (state, action) => {
+			state.filterOptions.searchValue = action.payload
+		},
+		setOrderData: (state, action) => {
+			state.filterOptions.orderData = action.payload
+		},
 	},
 
 	extraReducers: builder => {
@@ -127,5 +145,7 @@ export const {
 	setIsPlaying,
 	setIsLoop,
 	setIsShuffle,
+	setSearchValue,
+	setOrderData,
 } = playlistSlice.actions
 export const playlistReducer = playlistSlice.reducer

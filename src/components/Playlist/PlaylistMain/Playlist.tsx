@@ -1,3 +1,4 @@
+import { useTracksFilter } from '@/hooks/useTracksFilter'
 import Filter from '../../Filter/FilterMain/Filter'
 import Search from '../../Search/Search'
 import PlaylistItem from '../PlaylistItem/PlaylistItem'
@@ -11,6 +12,8 @@ type Props = {
 }
 
 export default function Playlist({ playlist, title }: Props) {
+	playlist = useTracksFilter(playlist)
+
 	return (
 		<div className={styles.main__centerblock}>
 			<Search />

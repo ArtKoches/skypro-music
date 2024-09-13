@@ -7,7 +7,7 @@ import {
 } from '@/store/features/playlistSlice'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 import { trackFormattedTime } from '@/utils/helpers'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Controls from '../Player/Controls/Controls'
 import PlayingTrack from '../Player/PlayingTrack/PlayingTrack'
 import Progress from '../Progress/Progress'
@@ -44,21 +44,30 @@ export default function Bar() {
 		}
 	}, [audio, dispatch])
 
-	const handleChangeVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setVolume(Number(event.target.value))
-	}
+	const handleChangeVolume = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			setVolume(Number(event.target.value))
+		},
+		[],
+	)
 
-	const handleChangeDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (audio) {
-			audio.currentTime = Number(event.target.value)
-		}
-	}
+	const handleChangeDuration = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			if (audio) {
+				audio.currentTime = Number(event.target.value)
+			}
+		},
+		[audio],
+	)
 
-	const handleTimeUpdate = (event: React.ChangeEvent<HTMLAudioElement>) => {
-		setElapsedTime(event.currentTarget.currentTime)
-	}
+	const handleTimeUpdate = useCallback(
+		(event: React.ChangeEvent<HTMLAudioElement>) => {
+			setElapsedTime(event.currentTarget.currentTime)
+		},
+		[],
+	)
 
-	const togglePlay = () => {
+	const togglePlay = useCallback(() => {
 		if (audio) {
 			if (isPlaying) {
 				audio.pause()
@@ -68,9 +77,9 @@ export default function Bar() {
 				dispatch(setIsPlaying(true))
 			}
 		}
-	}
+	}, [audio, dispatch, isPlaying])
 
-	const toggleLoop = () => {
+	const toggleLoop = useCallback(() => {
 		if (audio) {
 			if (isLoop) {
 				audio.loop = false
@@ -80,7 +89,7 @@ export default function Bar() {
 				dispatch(setIsLoop(true))
 			}
 		}
-	}
+	}, [audio, dispatch, isLoop])
 
 	return (
 		<div className={styles.bar}>
