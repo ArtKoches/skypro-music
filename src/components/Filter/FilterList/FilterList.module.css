@@ -35,9 +35,14 @@
 	line-height: 24px;
 
 	&:hover {
-		text-decoration: underline 2px;
-		text-underline-offset: 4px;
 		color: #b672ff;
 		cursor: pointer;
 	}
+}
+
+.activeListItem {
+	text-decoration: underline 2px;
+	text-underline-offset: 4px;
+	color: #b672ff;
+	cursor: pointer;
 }

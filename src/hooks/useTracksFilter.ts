@@ -15,9 +15,9 @@ export const useTracksFilter = (playlist: TrackDataType[]) => {
 					.includes(filterOptions.searchValue.toLowerCase()),
 			)
 		}
-		if (filterOptions.singer.length) {
+		if (filterOptions.author.length) {
 			initPlaylist = playlist.filter(track =>
-				filterOptions.singer.includes(track.author),
+				filterOptions.author.includes(track.author),
 			)
 		}
 		if (filterOptions.genre.length) {
@@ -25,6 +25,7 @@ export const useTracksFilter = (playlist: TrackDataType[]) => {
 				track.genre.some(genre => filterOptions.genre.includes(genre)),
 			)
 		}
+
 		if (filterOptions.orderData === 'Сначала новые') {
 			initPlaylist = playlist
 				.slice()
@@ -33,8 +34,7 @@ export const useTracksFilter = (playlist: TrackDataType[]) => {
 						new Date(b.release_date).getTime() -
 						new Date(a.release_date).getTime(),
 				)
-		}
-		if (filterOptions.orderData === 'Сначала старые') {
+		} else if (filterOptions.orderData === 'Сначала старые') {
 			initPlaylist = playlist
 				.slice()
 				.sort(

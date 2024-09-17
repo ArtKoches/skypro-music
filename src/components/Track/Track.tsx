@@ -1,29 +1,28 @@
-import React from 'react'
-import styles from './Track.module.css'
-import { TrackDataType } from '@/lib/types'
-import { useAppDispatch, useAppSelector } from '@/store/store'
-import { setCurrTrack, setIsPlaying } from '@/store/features/playlistSlice'
-import { trackFormattedTime } from '@/utils/helpers'
 import { useLikeTrack } from '@/hooks/useLikeTrack'
+import { TrackDataType } from '@/lib/types'
+import { setCurrTrack, setIsPlaying } from '@/store/features/playlistSlice'
+import { useAppDispatch, useAppSelector } from '@/store/store'
+import { trackFormattedTime } from '@/utils/helpers'
 import classNames from 'classnames'
+import styles from './Track.module.css'
 
 export default function Track(track: TrackDataType) {
 	const dispatch = useAppDispatch()
-	const { currPlaylist, currTrack, isPlaying } = useAppSelector(
+	const { mainPlaylist, currTrack, isPlaying } = useAppSelector(
 		state => state.playlist,
 	)
 
 	const { isLiked, handleLike } = useLikeTrack(track)
 
 	const handlePlay = (track: TrackDataType, tracks: TrackDataType[]) => {
-		dispatch(setCurrTrack({ currTrack: track, currPlaylist: tracks }))
+		dispatch(setCurrTrack({ currTrack: track, mainPlaylist: tracks }))
 		dispatch(setIsPlaying(true))
 	}
 
 	return (
 		<div
 			className={styles.playlist__item}
-			onClick={() => handlePlay(track, currPlaylist)}
+			onClick={() => handlePlay(track, mainPlaylist)}
 		>
 			<div className={styles.playlist__track}>
 				<div className={styles.track__title}>

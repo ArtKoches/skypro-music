@@ -3,7 +3,7 @@ import { TrackDataType } from '@/lib/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type PlaylistStateType = {
-	currPlaylist: TrackDataType[]
+	mainPlaylist: TrackDataType[]
 	shufflePlaylist: TrackDataType[]
 	favoritePlaylist: TrackDataType[]
 	selectionPlaylist: TrackDataType[]
@@ -15,14 +15,14 @@ type PlaylistStateType = {
 	isShuffle: boolean
 	filterOptions: {
 		searchValue: string
-		singer: string[]
+		author: string[]
 		orderData: string
 		genre: string[]
 	}
 }
 
 const initialState: PlaylistStateType = {
-	currPlaylist: [],
+	mainPlaylist: [],
 	shufflePlaylist: [],
 	favoritePlaylist: [],
 	selectionPlaylist: [],
@@ -34,7 +34,7 @@ const initialState: PlaylistStateType = {
 	isShuffle: false,
 	filterOptions: {
 		searchValue: '',
-		singer: [],
+		author: [],
 		orderData: 'По умолчанию',
 		genre: [],
 	},
@@ -48,15 +48,15 @@ const playlistSlice = createSlice({
 			state,
 			action: PayloadAction<{
 				currTrack: TrackDataType
-				currPlaylist: TrackDataType[]
+				mainPlaylist: TrackDataType[]
 			}>,
 		) => {
-			const sortPlaylist = [...action.payload.currPlaylist].sort(
+			const sortPlaylist = [...action.payload.mainPlaylist].sort(
 				() => 0.5 - Math.random(),
 			)
 
 			state.currTrack = action.payload.currTrack
-			state.currPlaylist = action.payload.currPlaylist
+			state.mainPlaylist = action.payload.mainPlaylist
 			state.shufflePlaylist = sortPlaylist
 		},
 		setLike: (state, action: PayloadAction<TrackDataType>) => {
@@ -72,7 +72,7 @@ const playlistSlice = createSlice({
 		setPrevTrack: state => {
 			const playlist = state.isShuffle
 				? state.shufflePlaylist
-				: state.currPlaylist
+				: state.mainPlaylist
 			const currIndex = playlist.findIndex(
 				track => track._id === state.currTrack?._id,
 			)
@@ -86,7 +86,7 @@ const playlistSlice = createSlice({
 		setNextTrack: state => {
 			const playlist = state.isShuffle
 				? state.shufflePlaylist
-				: state.currPlaylist
+				: state.mainPlaylist
 			const currIndex = playlist.findIndex(
 				track => track._id === state.currTrack?._id,
 			)
@@ -109,15 +109,35 @@ const playlistSlice = createSlice({
 		setSearchValue: (state, action) => {
 			state.filterOptions.searchValue = action.payload
 		},
+		setAuthor: (state, action) => {
+			const value = action.payload
+			const author = state.filterOptions.author
+
+			if (author.includes(value)) {
+				state.filterOptions.author = author.filter(author => author !== value)
+			} else {
+				author.push(value)
+			}
+		},
 		setOrderData: (state, action) => {
 			state.filterOptions.orderData = action.payload
+		},
+		setGenre: (state, action) => {
+			const value = action.payload
+			const genre = state.filterOptions.genre
+
+			if (genre.includes(value)) {
+				state.filterOptions.genre = genre.filter(genre => genre !== value)
+			} else {
+				genre.push(value)
+			}
 		},
 	},
 
 	extraReducers: builder => {
 		builder
 			.addCase(tracksApi.getTracks.fulfilled, (state, action) => {
-				state.currPlaylist = action.payload
+				state.mainPlaylist = action.payload
 				state.isLoading = false
 			})
 			.addCase(tracksApi.getFavoriteTracks.fulfilled, (state, action) => {
@@ -125,7 +145,7 @@ const playlistSlice = createSlice({
 				state.isLoading = false
 			})
 			.addCase(tracksApi.getSelections.fulfilled, (state, action) => {
-				const filterSelection = state.currPlaylist.filter(track => {
+				const filterSelection = state.mainPlaylist.filter(track => {
 					return state.selectionData?.items.includes(track._id)
 				})
 
@@ -146,6 +166,8 @@ export const {
 	setIsLoop,
 	setIsShuffle,
 	setSearchValue,
+	setAuthor,
 	setOrderData,
+	setGenre,
 } = playlistSlice.actions
 export const playlistReducer = playlistSlice.reducer

@@ -2,12 +2,12 @@
 
 import { tracksApi } from '@/api/tracksApi'
 import { useAppDispatch, useAppSelector } from '@/store/store'
-import Playlist from '../Playlist/PlaylistMain/Playlist'
 import { useEffect } from 'react'
+import Playlist from '../Playlist/PlaylistMain/Playlist'
 
 export default function Main() {
 	const dispatch = useAppDispatch()
-	const { currPlaylist } = useAppSelector(state => state.playlist)
+	const { mainPlaylist } = useAppSelector(state => state.playlist)
 
 	useEffect(() => {
 		try {
@@ -21,7 +21,7 @@ export default function Main() {
 
 	return (
 		<>
-			<Playlist playlist={currPlaylist} title={'Треки'} />
+			<Playlist playlist={mainPlaylist} title={'Треки'} />
 		</>
 	)
 }

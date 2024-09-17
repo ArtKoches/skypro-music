@@ -1,8 +1,8 @@
 import { TrackDataType } from '@/lib/types'
 import { useAppSelector } from '@/store/store'
-import styles from './PlaylistItem.module.css'
 import Track from '@/components/Track/Track'
 import { useMemo } from 'react'
+import styles from './PlaylistItem.module.css'
 
 type Props = {
 	playlist: TrackDataType[]
@@ -11,9 +11,13 @@ type Props = {
 export default function PlaylistItem({ playlist }: Props) {
 	const { isLoading } = useAppSelector(state => state.playlist)
 
+	const infoMsg = isLoading
+		? 'Загрузка треков...'
+		: !playlist.length && 'Треки не найдены'
+
 	return (
 		<div className={styles.content__playlist}>
-			{isLoading && 'Загрузка треков...'}
+			{infoMsg}
 			{useMemo(() => {
 				return playlist.map((track: TrackDataType) => (
 					<Track key={track._id} {...track} />

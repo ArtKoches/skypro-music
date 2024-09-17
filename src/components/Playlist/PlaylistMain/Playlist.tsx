@@ -18,7 +18,7 @@ export default function Playlist({ playlist, title }: Props) {
 		<div className={styles.main__centerblock}>
 			<Search />
 			<h2 className={styles.centerblock__h2}>{title}</h2>
-			<Filter playlist={playlist} />
+			<Filter />
 			<div className={styles.centerblock__content}>
 				<PlaylistTitle />
 				<PlaylistItem playlist={playlist} />

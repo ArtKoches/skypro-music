@@ -16,13 +16,15 @@ export default function Nav() {
 	return (
 		<nav className={styles.main__nav}>
 			<div className={styles.nav__logo}>
-				<Image
-					className={styles.logo__image}
-					src='/img/logo.png'
-					alt='logo'
-					width={113}
-					height={17}
-				/>
+				<Link href={routes.HOME}>
+					<Image
+						className={styles.logo__image}
+						src='/img/logo.png'
+						alt='logo'
+						width={113}
+						height={17}
+					/>
+				</Link>
 			</div>
 
 			<div className={styles.nav__burger} ref={ref} onClick={handleOpenMenu}>
