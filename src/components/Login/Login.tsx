@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import ErrorMsg from '../Error/ErrorMsg/ErrorMsg'
 import styles from './Login.module.css'
 
@@ -27,41 +27,45 @@ export default function Login() {
 		setError(null)
 	}
 
-	const signIn = async () => {
-		if (!loginData.email.trim() && !loginData.password.trim()) {
-			setError('Заполните все поля')
-			return
-		}
-		if (!loginData.email.trim()) {
-			setError('Введите почту')
-			return
-		}
-		if (!loginData.password.trim()) {
-			setError('Введите пароль')
-			return
-		}
-		if (loginData.password.length < 6) {
-			setError('Пароль должен содержать не менее 6 символов.')
-			return
-		}
+	const signIn = useMemo(() => {
+		return async (event: React.MouseEvent<HTMLButtonElement>) => {
+			event.preventDefault()
 
-		try {
-			await dispatch(userApi.getUser(loginData)).unwrap()
-			await dispatch(userApi.getToken(loginData))
-			router.push(routes.HOME)
-		} catch (err) {
-			const error = err as Error
-			setError(error.message)
-			console.error(error.message)
+			if (!loginData.email.trim() && !loginData.password.trim()) {
+				setError('Заполните все поля')
+				return
+			}
+			if (!loginData.email.trim()) {
+				setError('Введите почту')
+				return
+			}
+			if (!loginData.password.trim()) {
+				setError('Введите пароль')
+				return
+			}
+			if (loginData.password.length < 6) {
+				setError('Пароль должен содержать не менее 6 символов.')
+				return
+			}
+
+			try {
+				await dispatch(userApi.getUser(loginData)).unwrap()
+				await dispatch(userApi.getToken(loginData))
+				router.push(routes.HOME)
+			} catch (err) {
+				const error = err as Error
+				setError(error.message)
+				console.error(error.message)
+			}
 		}
-	}
+	}, [dispatch, loginData, router])
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.container_enter}>
 				<div className={styles.modal__block}>
 					<form className={styles.modal__form_login} action='#'>
-						<a href='#'>
+						<Link href={routes.HOME}>
 							<div className={styles.modal__logo}>
 								<Image
 									src='/img/logo_modal.png'
@@ -70,7 +74,7 @@ export default function Login() {
 									height={21}
 								/>
 							</div>
-						</a>
+						</Link>
 						<input
 							className={classNames(styles.modal__input, styles.login)}
 							type='email'
@@ -89,8 +93,9 @@ export default function Login() {
 							autoComplete='off'
 						/>
 						{error && <ErrorMsg error={error} />}
+
 						<button className={styles.modal__btn_enter} onClick={signIn}>
-							<a href='#'>Войти</a>
+							Войти
 						</button>
 						<button className={styles.modal__btn_signup}>
 							<Link href={routes.REGISTER}>Зарегистрироваться</Link>

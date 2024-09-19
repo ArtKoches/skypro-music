@@ -5,11 +5,12 @@ import { routes } from '@/lib/routes'
 import { useAppDispatch } from '@/store/store'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, memo, useMemo, useState } from 'react'
 import ErrorMsg from '../Error/ErrorMsg/ErrorMsg'
 import styles from './Register.module.css'
+import Link from 'next/link'
 
-export default function Register() {
+export default memo(function Register() {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 
@@ -26,44 +27,48 @@ export default function Register() {
 		setError(null)
 	}
 
-	const signUp = async () => {
-		if (!regData.email.trim()) {
-			setError('Введите почту')
-			return
-		}
-		if (!regData.password.trim()) {
-			setError('Введите пароль')
-			return
-		}
-		if (regData.password.length < 6) {
-			setError('Пароль должен содержать не менее 6 символов.')
-			return
-		}
-		if (!regData.username.trim()) {
-			setError('Введите имя пользователя')
-			return
-		}
-		if (regData.username.length < 3) {
-			setError('Имя пользователя должно содержать не менее 3 символов.')
-			return
-		}
+	const signUp = useMemo(() => {
+		return async (event: React.MouseEvent<HTMLButtonElement>) => {
+			event.preventDefault()
 
-		try {
-			await dispatch(userApi.regUser(regData)).unwrap()
-			router.push(routes.LOGIN)
-		} catch (err) {
-			const error = err as Error
-			setError(error.message)
-			console.error(error.message)
+			if (!regData.email.trim()) {
+				setError('Введите почту')
+				return
+			}
+			if (!regData.password.trim()) {
+				setError('Введите пароль')
+				return
+			}
+			if (regData.password.length < 6) {
+				setError('Пароль должен содержать не менее 6 символов.')
+				return
+			}
+			if (!regData.username.trim()) {
+				setError('Введите имя пользователя')
+				return
+			}
+			if (regData.username.length < 3) {
+				setError('Имя пользователя должно содержать не менее 3 символов.')
+				return
+			}
+
+			try {
+				await dispatch(userApi.regUser(regData)).unwrap()
+				router.push(routes.LOGIN)
+			} catch (err) {
+				const error = err as Error
+				setError(error.message)
+				console.error(error.message)
+			}
 		}
-	}
+	}, [dispatch, regData, router])
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.container_signup}>
 				<div className={styles.modal__block}>
 					<form className={styles.modal__form_login}>
-						<a href='#'>
+						<Link href={routes.LOGIN}>
 							<div className={styles.modal__logo}>
 								<Image
 									src='/img/logo_modal.png'
@@ -72,7 +77,7 @@ export default function Register() {
 									height={21}
 								/>
 							</div>
-						</a>
+						</Link>
 						<input
 							className={styles.modal__input}
 							type='email'
@@ -98,12 +103,13 @@ export default function Register() {
 							onChange={onChange}
 						/>
 						{error && <ErrorMsg error={error} />}
+
 						<button className={styles.modal__btn_signup_ent} onClick={signUp}>
-							<a href='#'>Зарегистрироваться</a>
+							Зарегистрироваться
 						</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	)
-}
+})

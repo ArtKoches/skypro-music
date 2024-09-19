@@ -5,10 +5,12 @@ import styles from './Nav.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { routes } from '@/lib/routes'
-import { useAppSelector } from '@/store/store'
+import { useAppDispatch, useAppSelector } from '@/store/store'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { resetFilterOptions } from '@/store/features/playlistSlice'
 
 export default function Nav() {
+	const dispatch = useAppDispatch()
 	const { visible, setVisible, ref } = useOutsideClick(false)
 	const { user } = useAppSelector(state => state.user)
 	const handleOpenMenu = () => setVisible(prev => !prev)
@@ -42,7 +44,10 @@ export default function Nav() {
 							</Link>
 						</li>
 						{user && (
-							<li className={styles.menu__item}>
+							<li
+								className={styles.menu__item}
+								onClick={() => dispatch(resetFilterOptions())}
+							>
 								<Link className={styles.menu__link} href={routes.FAVORITE}>
 									Мой плейлист
 								</Link>

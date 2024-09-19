@@ -7,14 +7,14 @@ import {
 } from '@/store/features/playlistSlice'
 import { useAppDispatch, useAppSelector } from '@/store/store'
 import { trackFormattedTime } from '@/utils/helpers'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import Controls from '../Player/Controls/Controls'
 import PlayingTrack from '../Player/PlayingTrack/PlayingTrack'
 import Progress from '../Progress/Progress'
 import Volume from '../Volume/Volume'
 import styles from './Bar.module.css'
 
-export default function Bar() {
+export default memo(function Bar() {
 	const { currTrack, isPlaying, isLoop } = useAppSelector(
 		state => state.playlist,
 	)
@@ -72,9 +72,6 @@ export default function Bar() {
 			if (isPlaying) {
 				audio.pause()
 				dispatch(setIsPlaying(false))
-			} else {
-				audio.play()
-				dispatch(setIsPlaying(true))
 			}
 		}
 	}, [audio, dispatch, isPlaying])
@@ -123,4 +120,4 @@ export default function Bar() {
 			</div>
 		</div>
 	)
-}
+})

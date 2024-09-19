@@ -5,6 +5,8 @@ import PlaylistItem from '../PlaylistItem/PlaylistItem'
 import PlaylistTitle from '../PlaylistTitle/PlaylistTitle'
 import styles from './Playlist.module.css'
 import { TrackDataType } from '@/lib/types'
+import { useAppSelector } from '@/store/store'
+import SkeletonLoader from '@/components/Skeleton/Skeleton'
 
 type Props = {
 	playlist: TrackDataType[]
@@ -12,12 +14,19 @@ type Props = {
 }
 
 export default function Playlist({ playlist, title }: Props) {
+	const { isLoading } = useAppSelector(state => state.playlist)
 	playlist = useTracksFilter(playlist)
 
 	return (
 		<div className={styles.main__centerblock}>
 			<Search />
-			<h2 className={styles.centerblock__h2}>{title}</h2>
+			<h2 className={styles.centerblock__h2}>
+				{isLoading ? (
+					<SkeletonLoader width={1107} height={72} borderRadius={0} />
+				) : (
+					title
+				)}
+			</h2>
 			<Filter />
 			<div className={styles.centerblock__content}>
 				<PlaylistTitle />

@@ -3,6 +3,7 @@ import { useAppSelector } from '@/store/store'
 import { useCallback, useMemo } from 'react'
 import FilterButton from '../FilterButton/FilterButton'
 import styles from './Filter.module.css'
+import SkeletonLoader from '@/components/Skeleton/Skeleton'
 
 const filterTitles: string[] = [
 	FilterType.author,
@@ -11,7 +12,7 @@ const filterTitles: string[] = [
 ]
 
 export default function Filter() {
-	const { mainPlaylist } = useAppSelector(state => state.playlist)
+	const { mainPlaylist, isLoading } = useAppSelector(state => state.playlist)
 
 	const getUniqueFilterLists = useCallback(
 		(option: string): string[] => {
@@ -26,6 +27,7 @@ export default function Filter() {
 					return Array.from(
 						new Set<string>(mainPlaylist.map(track => track.genre).flat()),
 					)
+
 				default:
 					return []
 			}
@@ -40,7 +42,15 @@ export default function Filter() {
 				return filterTitles.map((title, key: number) => {
 					const getFilterLists = getUniqueFilterLists(title)
 
-					return (
+					return isLoading ? (
+						<SkeletonLoader
+							key={key}
+							width={144}
+							height={39}
+							borderRadius={60}
+							style={{ marginRight: '10px' }}
+						/>
+					) : (
 						<FilterButton
 							key={key}
 							title={title}
@@ -48,7 +58,7 @@ export default function Filter() {
 						/>
 					)
 				})
-			}, [getUniqueFilterLists])}
+			}, [getUniqueFilterLists, isLoading])}
 		</div>
 	)
 }

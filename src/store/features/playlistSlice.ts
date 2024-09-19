@@ -132,6 +132,14 @@ const playlistSlice = createSlice({
 				genre.push(value)
 			}
 		},
+		resetFilterOptions: state => {
+			state.filterOptions = {
+				author: [],
+				genre: [],
+				orderData: 'По умолчанию',
+				searchValue: '',
+			}
+		},
 	},
 
 	extraReducers: builder => {
@@ -169,5 +177,6 @@ export const {
 	setAuthor,
 	setOrderData,
 	setGenre,
+	resetFilterOptions,
 } = playlistSlice.actions
 export const playlistReducer = playlistSlice.reducer

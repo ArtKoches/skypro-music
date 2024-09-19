@@ -3,9 +3,9 @@
 import { routes } from '@/lib/routes'
 import { useAppSelector } from '@/store/store'
 import { useRouter } from 'next/navigation'
-import React, { PropsWithChildren, useEffect } from 'react'
+import React, { memo, PropsWithChildren, useEffect } from 'react'
 
-export default function PrivateRoute({ children }: PropsWithChildren) {
+export default memo(function PrivateRoute({ children }: PropsWithChildren) {
 	const router = useRouter()
 	const { user, tokens } = useAppSelector(state => state.user)
 
@@ -16,4 +16,4 @@ export default function PrivateRoute({ children }: PropsWithChildren) {
 	}, [user, tokens, router])
 
 	return <>{children}</>
-}
+})
