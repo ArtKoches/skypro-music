@@ -34,16 +34,13 @@ export default function Login() {
 			if (!loginData.email.trim() && !loginData.password.trim()) {
 				setError('Заполните все поля')
 				return
-			}
-			if (!loginData.email.trim()) {
+			} else if (!loginData.email.trim()) {
 				setError('Введите почту')
 				return
-			}
-			if (!loginData.password.trim()) {
+			} else if (!loginData.password.trim()) {
 				setError('Введите пароль')
 				return
-			}
-			if (loginData.password.length < 6) {
+			} else if (loginData.password.length < 6) {
 				setError('Пароль должен содержать не менее 6 символов.')
 				return
 			}

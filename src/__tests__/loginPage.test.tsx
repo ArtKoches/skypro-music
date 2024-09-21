@@ -2,7 +2,8 @@ import Login from '@/components/Login/Login'
 import { useAppDispatch } from '@/store/store'
 import { useRouter } from 'next/navigation'
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent, cleanup } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
+import renderer from 'react-test-renderer'
 
 jest.mock('../store/store.ts')
 jest.mock('next/navigation')
@@ -15,11 +16,12 @@ describe('Страница авторизации', () => {
 		mockDispatch.mockReturnValue(jest.fn())
 		mockRouter.mockReturnValue(jest.fn())
 	})
-	afterEach(() => {
-		cleanup()
-	})
 
 	describe('Рендер элементов на странице', () => {
+		it('рендер компонента', () => {
+			const login = renderer.create(<Login />).toJSON()
+			expect(login).toMatchSnapshot()
+		})
 		it('лого приложения', () => {
 			render(<Login />)
 

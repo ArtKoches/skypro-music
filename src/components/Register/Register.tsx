@@ -31,23 +31,22 @@ export default memo(function Register() {
 		return async (event: React.MouseEvent<HTMLButtonElement>) => {
 			event.preventDefault()
 
-			if (!regData.email.trim()) {
+			if (!regData.email.trim() && !regData.password.trim()) {
+				setError('Заполните все поля')
+				return
+			} else if (!regData.email.trim()) {
 				setError('Введите почту')
 				return
-			}
-			if (!regData.password.trim()) {
+			} else if (!regData.password.trim()) {
 				setError('Введите пароль')
 				return
-			}
-			if (regData.password.length < 6) {
+			} else if (regData.password.length < 6) {
 				setError('Пароль должен содержать не менее 6 символов.')
 				return
-			}
-			if (!regData.username.trim()) {
+			} else if (!regData.username.trim()) {
 				setError('Введите имя пользователя')
 				return
-			}
-			if (regData.username.length < 3) {
+			} else if (regData.username.length < 3) {
 				setError('Имя пользователя должно содержать не менее 3 символов.')
 				return
 			}

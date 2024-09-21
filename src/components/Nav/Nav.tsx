@@ -29,7 +29,12 @@ export default function Nav() {
 				</Link>
 			</div>
 
-			<div className={styles.nav__burger} ref={ref} onClick={handleOpenMenu}>
+			<div
+				data-testid='burgerBtn'
+				className={styles.nav__burger}
+				ref={ref}
+				onClick={handleOpenMenu}
+			>
 				<span className={styles.burger__line} />
 				<span className={styles.burger__line} />
 				<span className={styles.burger__line} />

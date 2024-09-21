@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MVP Музыкальный сервис "Skypro"
 
-## Getting Started
+## Сервис разработан на Next.js по макету Figma
 
-First, run the development server:
+https://www.figma.com/design/XbFmF8JhhuJn0E9C060k8f/Музыкальный-сервис?node-id=0-1&node-type=canvas&t=910Tau8J01Bxv4Ti-0
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### В проекте используются технологии
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# **_React.js_**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# **_Redux Toolkit_**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# **_TypeScript_**
 
-## Learn More
+# **_CSS Module_**
 
-To learn more about Next.js, take a look at the following resources:
+# **_Jest.js_**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# **_React-Skeleton_**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### Особенности сервиса
 
-## Deploy on Vercel
+# **В приложении реализованы страницы: Главное, Избранное(только для авторизованных пользователей), и страницы с 3-мя готовыми подборками(Плейлист дня, 100 Танцевальных хитов, Инди-заряд)**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# **Реализована авторизация и регистрация пользователя**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# **Реализован функционал лайков/дизлайков (только для авторизованных пользователей)**
+
+# **Реализован функционал фильтра для треков по: ключевому слову, исполнителю(множественный выбор), году выпуска(от новых к старым и обратно), жанру(множественный выбор)**
+
+# **Кастомный плеер имеет возможность ставить на зацикливание/перемешивание трека/плейлиста**
+
+##### Оценка времени
+
+# **Первоначальная оценка**
+
+182 часа
+
+## **Фактически затраченное время**
+
+168 часов

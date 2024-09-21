@@ -72,6 +72,9 @@ export default memo(function Bar() {
 			if (isPlaying) {
 				audio.pause()
 				dispatch(setIsPlaying(false))
+			} else {
+				audio.play()
+				dispatch(setIsPlaying(true))
 			}
 		}
 	}, [audio, dispatch, isPlaying])
