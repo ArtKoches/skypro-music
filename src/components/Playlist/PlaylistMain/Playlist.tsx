@@ -15,7 +15,7 @@ type Props = {
 
 export default function Playlist({ playlist, title }: Props) {
 	const { isLoading } = useAppSelector(state => state.playlist)
-	playlist = useTracksFilter(playlist)
+	const tracks = useTracksFilter(playlist)
 
 	return (
 		<div className={styles.main__centerblock}>
@@ -30,7 +30,7 @@ export default function Playlist({ playlist, title }: Props) {
 			<Filter />
 			<div className={styles.centerblock__content}>
 				<PlaylistTitle />
-				<PlaylistItem playlist={playlist} />
+				<PlaylistItem playlist={tracks} />
 			</div>
 		</div>
 	)

@@ -9,25 +9,25 @@ export const useTracksFilter = (playlist: TrackDataType[]) => {
 		let initPlaylist = playlist
 
 		if (filterOptions.searchValue) {
-			initPlaylist = playlist.filter(track =>
+			initPlaylist = initPlaylist.filter(track =>
 				track.name
 					.toLowerCase()
 					.includes(filterOptions.searchValue.toLowerCase()),
 			)
 		}
 		if (filterOptions.author.length) {
-			initPlaylist = playlist.filter(track =>
+			initPlaylist = initPlaylist.filter(track =>
 				filterOptions.author.includes(track.author),
 			)
 		}
 		if (filterOptions.genre.length) {
-			initPlaylist = playlist.filter(track =>
+			initPlaylist = initPlaylist.filter(track =>
 				track.genre.some(genre => filterOptions.genre.includes(genre)),
 			)
 		}
 
 		if (filterOptions.orderData === 'Сначала новые') {
-			initPlaylist = playlist
+			initPlaylist = initPlaylist
 				.slice()
 				.sort(
 					(a, b) =>
@@ -35,7 +35,7 @@ export const useTracksFilter = (playlist: TrackDataType[]) => {
 						new Date(a.release_date).getTime(),
 				)
 		} else if (filterOptions.orderData === 'Сначала старые') {
-			initPlaylist = playlist
+			initPlaylist = initPlaylist
 				.slice()
 				.sort(
 					(a, b) =>
